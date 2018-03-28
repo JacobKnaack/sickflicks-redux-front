@@ -1,0 +1,87 @@
+.member {
+  width: 90%;
+  min-height: calc(100vh - 300px);
+  margin: 0 auto 0 auto;
+  background-color: #d3d3d3;
+  border-radius: 10px;
+  box-shadow: 7px 7px 5px #888888;
+}
+
+.login {
+  width: 90%;
+  margin: 0 auto;
+
+  .memberIcon {
+    font-size: 400%;
+    color: #3A3A3A;
+    display: block;
+    text-align: center;
+    margin: 0 auto 10px auto;
+    padding-top: 10px;
+  }
+
+  h2 {
+    height: auto;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 50px;
+    text-align: center;
+    font-family: 'Saira', sans-serif;
+    span {
+      font-family: 'Ultra', cursive;
+    }
+
+    #span1 {
+      color: #d74898;
+    }
+
+    #span2 {
+      color: #01ffc4;
+    }
+  }
+
+  #loginForm {
+    background-color: #ffffff;
+    max-width: 500px;
+    min-height: 300px;
+    margin: 10px auto;
+    border-radius: 15px;
+
+    label, input {
+      font-family: 'Saira', sans-serif;
+      font-size: 100%;
+    }
+
+    input {
+      border: none;
+      outline: none;
+    }
+
+    #loginForm-username, #loginForm-password {
+      width: 300px;
+      margin: 20px auto;
+      border-bottom: thin solid #3a3a3a;
+
+      input {
+        text-align: center;
+      }
+    }
+
+    #submitBtn {
+      display: block;
+      width: 75px;
+      margin: 0 auto;
+    }
+
+    #submitBtn:hover {
+      color: #01ffca;
+    }
+
+    h3 {
+      font-family: 'Saira', sans-serif;
+      text-align: center;
+      height: 40px;
+      line-height: 40px;
+    }
+  }
+}
