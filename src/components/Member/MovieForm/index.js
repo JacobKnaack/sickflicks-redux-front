@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { searchMovies, selectMovie } from '../../../dux/tmdb'
+import { searchMovies } from '../../../dux/tmdb'
 
+import ReviewForm from '../ReviewForm'
 import * as util from '../../../lib/util'
 import './_movieForm.scss'
 
@@ -12,6 +13,7 @@ class MovieForm extends React.Component {
     this.state = {
       movieName: '',
       releaseDate: '',
+      tmdb_id: null,
       reviewArray: [],
       formOpen: false,
     }
@@ -24,6 +26,12 @@ class MovieForm extends React.Component {
   render() {
     return (
       <div className='movieForm'>
+      {util.renderEither(this.state.movieName && this.state.releaseDate,
+        <ReviewForm 
+          tmdb_id={this.state.tmdb_id}
+          movieTitle={this.state.movieName}
+          releaseDate={this.state.releaseDate}
+        />,
         <form className='reviewForm'>
           <h3>What Movie are you reviewing?</h3>
           <input
@@ -36,6 +44,7 @@ class MovieForm extends React.Component {
             {this.displayMovieSearchList(this.props.movieSearch)}
           </div>
         </form>
+      )}
       </div>
     )
   }
@@ -43,15 +52,22 @@ class MovieForm extends React.Component {
   displayMovieSearchList(movieArray) {
     const movieSearchElements= []
 
-    if (this.state.movieName.length > 0) {
+    if (this.state.movieName.length > 0 && Array.isArray(movieArray)) {
       movieArray.map(movie => {
+        let imagePath
+        if (movie.poster_path == null) {
+          imagePath = 'https://cdn4.iconfinder.com/data/icons/web-links/512/40-256.png'
+        } else {
+          imagePath = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+        }
+
         movieSearchElements.push(
           <div key={movie.id}
                className='movieSearchListItem'
                onClick={() => this.selectMovie(movie.id, movie.title, movie.release_date)}>
             <h3>{movie.title}</h3>
             <h4>{movie.release_date}</h4>
-            <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} />
+            <img src={imagePath} alt={movie.title} />
           </div>
         )
       })
@@ -84,18 +100,15 @@ class MovieForm extends React.Component {
 
   selectMovie(id, title, releaseDate) {
     this.setState({
+      tmdb_id: id,
       movieName: title,
       releaseDate: releaseDate 
-    }, () => {
-      this.props.selectMovie(id)
     })
-
   }
 }
 
 MovieForm.propTypes = {
   searchMovies: PropTypes.func,
-  selectMovie: PropTypes.func,
 }
 
 const mapStateToProps = state => ({
@@ -104,4 +117,4 @@ const mapStateToProps = state => ({
   movieSearch: state.tmdb.data
 })
 
-export default connect(mapStateToProps, { searchMovies, selectMovie })(MovieForm)
+export default connect(mapStateToProps, { searchMovies })(MovieForm)
