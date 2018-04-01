@@ -5,10 +5,20 @@
   background-color: #d3d3d3;
   border-radius: 10px;
   box-shadow: 7px 7px 5px #888888;
+
+  .username {
+    font-family: 'Saira', sans-serif;
+    font-size: 120%;
+    color: #d3d3d3;
+    padding: 10px;
+    background-color: #304F4E;
+    border-radius: 10px 10px 0 0;
+  }
 }
 
 .login {
   width: 90%;
+  height: 100%;
   margin: 0 auto;
 
   .memberIcon {

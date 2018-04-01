@@ -32,18 +32,20 @@ class MovieForm extends React.Component {
           movieTitle={this.state.movieName}
           releaseDate={this.state.releaseDate}
         />,
-        <form className='reviewForm'>
-          <h3>What Movie are you reviewing?</h3>
+        <div>
           <input
+            className='moviePrompt'
             type='text'
             name='movieName'
             value={this.state.movieName}
             onChange={this.movieSearch}
+            placeholder='What Movie Are You Reviewing?'
+            autoComplete='off'
           />
           <div className='movieSearchResults'>
             {this.displayMovieSearchList(this.props.movieSearch)}
           </div>
-        </form>
+        </div>
       )}
       </div>
     )

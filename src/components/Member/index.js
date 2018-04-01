@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { login } from '../../dux/member'
 import MovieForm from './MovieForm'
+import MemberMenu from './MemberMenu'
 
 import * as util from '../../lib/util'
 import './_member.scss'
@@ -13,10 +14,12 @@ class Member extends React.Component {
       username: '',
       password: '',
       movieFormOpen: false,
+      menuSelected: false,
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
     this.toggleMovieForm = this.toggleMovieForm.bind(this)
+    this.menuSelect = this.menuSelect.bind(this)
     this.login = this.login.bind(this)
   }
 
@@ -29,14 +32,13 @@ class Member extends React.Component {
       <div className='member'>
         {util.renderEither(this.props.accessToken,
           <div className='memberArea'>
-            <h2>Welcome {this.state.username}</h2>
-            <div className='movieMenu'>
-              <input
-                type='button'
-                value='Submit a movie Review?'
-                onClick={this.toggleMovieForm}
+            <h2 className='username'>Welcome <span>{this.state.username}</span></h2>
+            {util.renderIf(!this.state.menuSelected,
+              <MemberMenu
+                toggleMovieForm={this.toggleMovieForm}
+                menuSelect={this.menuSelect}
               />
-            </div>
+            )}
           </div>,
           <div className='login'>
             <i className="memberIcon fas fa-unlock-alt"></i>
@@ -50,6 +52,7 @@ class Member extends React.Component {
                   value={this.state.username}
                   name='username'
                   onChange={this.handleInputChange}
+                  autoComplete='off'
                 />
               </div>
               <div id='loginForm-password'>
@@ -89,6 +92,12 @@ class Member extends React.Component {
   toggleMovieForm() {
     this.setState({
       movieFormOpen: !this.state.movieFormOpen,
+    })
+  }
+
+  menuSelect() {
+    this.setState({
+      menuSelected: !this.state.menuSelected,
     })
   }
 }
