@@ -15,3 +15,36 @@
   overflow-y: auto;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+.editor-container {
+  min-height: 500px;
+  background-color: #ffffff;
+
+  .ql-editor {
+    
+    p {
+      font-family: 'Bellefair', serif;
+      margin: 25px auto;
+      font-size: 160%;
+    }
+
+    h2 {
+      width: 40%;
+      border-bottom: 2px solid #D54B97;
+      font-family: 'Saira', sans-serif;
+      font-size: 170%;
+      margin: 30px 0;
+    }
+
+    blockquote {
+      font-family: 'Bellefair', serif;
+      font-size: 200%;
+    }
+
+    iframe {
+      margin: 0 auto;
+      min-width: 50%;
+      min-height: 400px;
+    }
+  }
+}

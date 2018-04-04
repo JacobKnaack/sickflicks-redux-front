@@ -8,15 +8,10 @@ class Review extends React.Component {
     return (
       <div className='review'>
         <h1 className='reviewTitle'>{this.props.title}</h1>
-        <div className='reviewtext'
-             dangerouslySetInnerHTML={this.formatReview(this.props.reviewText)} />
+        <div className='reviewText' 
+            dangerouslySetInnerHTML={{__html: this.props.reviewText}} /> 
       </div>
     )
-  }
-
-  formatReview(text) {
-    console.log(text)
-    return {__html: marked(text)}
   }
 }
 

@@ -2,3 +2,32 @@
   background-color: #ffffff;
   margin: 0 auto;
 }
+
+.reviewText {
+  width: 90%;
+  margin: 0 auto;
+  
+  h2 {
+    width: 40%;
+    border-bottom: 2px solid #D54B97;
+    font-family: 'Saira', sans-serif;
+    font-size: 170%;
+    margin: 30px 0;
+  }
+
+  p {
+    display: block;
+    margin: 25px auto;
+    font-family: 'bellefair', serif;
+    font-size: 160%;
+  }
+
+  blockquote {
+    border-left: 4px solid #ccc;
+    border-bottom: 5px;
+    margin-top: 5px;
+    padding-left: 16px;
+    font-family: 'Bellefair', serif;
+    font-size: 200%;
+  }
+}

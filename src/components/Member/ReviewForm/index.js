@@ -4,6 +4,8 @@ import { selectMovie } from '../../../dux/tmdb'
 import { addMovie } from '../../../dux/movies'
 // import { submitReview } from '../../../dux/reviews'
 
+import ReviewEditor from './ReviewEditor'
+import ImageGallery from './ImageGallery'
 import Preview from './Preview'
 import * as util from '../../../lib/util'
 import './_reviewForm.scss'
@@ -14,11 +16,13 @@ class ReviewForm extends React.Component {
     this.state = {
       reviewTitle: '',
       author: '',
-      reviewText: '',
+      reviewHTML: '',
       reviewPreview: false,
+      imageGallery: false,
     }
 
     this.formFieldTyping = this.formFieldTyping.bind(this)
+    this.handleReviewChange = this.handleReviewChange.bind(this)
     this.toggleReviewPreview = this.toggleReviewPreview.bind(this)
   }
 
@@ -66,12 +70,9 @@ class ReviewForm extends React.Component {
             onChange={this.formFieldTyping}
             placeholder='Title (Required)'
           />
-          <textarea
-            name='reviewText'
-            style={textareaStyle}
-            value={this.state.reviewText}
-            onChange={this.formFieldTyping}
-            placeholder='Review Goes Here (Required)'
+          <ReviewEditor 
+            handleReviewChange={this.handleReviewChange}
+            reviewHTML={this.state.reviewHTML}
           />
           <input
             type='button'
@@ -84,9 +85,12 @@ class ReviewForm extends React.Component {
           <Preview 
             title={this.state.reviewTitle}
             author={this.state.author}
-            reviewText={this.state.reviewText}
+            reviewText={this.state.reviewHTML}
             toggleReviewPreview={this.toggleReviewPreview}
           />
+        )}
+        {util.renderIf(this.state.imageGaller,
+          <ImageGallery />
         )}
       </div>
     )
@@ -95,6 +99,14 @@ class ReviewForm extends React.Component {
   formFieldTyping(e) {
     const { name, value } = e.target
     this.setState({ [name]: value })
+  }
+
+  handleReviewChange(html) {
+    this.setState({
+      reviewHTML: html
+    }, () => {
+      console.log(this.state.reviewHTML)
+    })
   }
 
   toggleReviewPreview() {
