@@ -11,7 +11,8 @@ class MovieForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      movieName: '',
+      movieTitle: '',
+      movieImage: '',
       releaseDate: '',
       tmdb_id: null,
       reviewArray: [],
@@ -26,18 +27,19 @@ class MovieForm extends React.Component {
   render() {
     return (
       <div className='movieForm'>
-      {util.renderEither(this.state.movieName && this.state.releaseDate,
+      {util.renderEither(this.state.movieTitle && this.state.releaseDate,
         <ReviewForm 
           tmdb_id={this.state.tmdb_id}
-          movieTitle={this.state.movieName}
+          movieTitle={this.state.movieTitle}
           releaseDate={this.state.releaseDate}
+          imagePath={this.state.movieImage}
         />,
         <div>
           <input
             className='moviePrompt'
             type='text'
-            name='movieName'
-            value={this.state.movieName}
+            name='movieTitle'
+            value={this.state.movieTitle}
             onChange={this.movieSearch}
             placeholder='What Movie Are You Reviewing?'
             autoComplete='off'
@@ -54,7 +56,7 @@ class MovieForm extends React.Component {
   displayMovieSearchList(movieArray) {
     const movieSearchElements= []
 
-    if (this.state.movieName.length > 0 && Array.isArray(movieArray)) {
+    if (this.state.movieTitle.length > 0 && Array.isArray(movieArray)) {
       movieArray.map(movie => {
         let imagePath
         if (movie.poster_path == null) {
@@ -66,7 +68,7 @@ class MovieForm extends React.Component {
         movieSearchElements.push(
           <div key={movie.id}
                className='movieSearchListItem'
-               onClick={() => this.selectMovie(movie.id, movie.title, movie.release_date)}>
+               onClick={() => this.selectMovie(movie.id, movie.title, movie.release_date, imagePath)}>
             <h3>{movie.title}</h3>
             <h4>{movie.release_date}</h4>
             <img src={imagePath} alt={movie.title} />
@@ -94,17 +96,18 @@ class MovieForm extends React.Component {
   movieSearch(e) {
     const { name, value } = e.target
     this.setState({ [name]: value }, () => {
-      if (this.state.movieName.length > 0) {
-        this.props.searchMovies(this.state.movieName)
+      if (this.state.movieTitle.length > 0) {
+        this.props.searchMovies(this.state.movieTitle)
       }
     })
   }
 
-  selectMovie(id, title, releaseDate) {
+  selectMovie(id, title, releaseDate, imagePath) {
     this.setState({
       tmdb_id: id,
-      movieName: title,
-      releaseDate: releaseDate 
+      movieTitle: title,
+      releaseDate: releaseDate,
+      movieImage: imagePath,
     })
   }
 }

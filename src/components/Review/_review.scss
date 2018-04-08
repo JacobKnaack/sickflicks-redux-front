@@ -1,12 +1,25 @@
 .review {
   background-color: #ffffff;
   margin: 0 auto;
+  width: 80%;
+}
+
+.reviewTitle {
+  font-family: 'Saira', sans-serif;
+  font-weight: 1000;
+  font-size: 170%;
+}
+
+.reviewHeader {
+  width: 90%;
+  margin: 0 auto;
 }
 
 .reviewText {
   width: 90%;
   margin: 0 auto;
-  
+
+
   h2 {
     width: 40%;
     border-bottom: 2px solid #D54B97;
@@ -19,7 +32,7 @@
     display: block;
     margin: 25px auto;
     font-family: 'bellefair', serif;
-    font-size: 160%;
+    font-size: 150%;
   }
 
   blockquote {

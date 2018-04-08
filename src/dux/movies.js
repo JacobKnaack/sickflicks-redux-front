@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import { CALL_API } from 'redux-api-middleware'
+import POST_REVIEW_SUCCESS from './reviews'
 
 export const FETCH_MOVIE_REQUEST = 'FETCH_MOVIE_REQUEST'
 export const FETCH_MOVIE_SUCCESS = 'FETCH_MOVIE_SUCCESS'
@@ -23,11 +24,20 @@ export const fetchMovies = () => (dispatch) => {
   })
 }
 
-export const addMovie = (name, release) => (dispatch) => {
+export const addMovie = (name, release, imagePath, accessToken) => (dispatch) => {
   dispatch({
     [CALL_API]: {
-      endpoint: `${__DB_API_URL}/movies`,
-      method: "POST",
+      endpoint: `${__DB_API_URL__}/movie`,
+      method: 'POST'  ,
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        release: release,
+        image_path: imagePath,
+      }),
       types: [
         ADD_MOVIE_REQUEST,
         ADD_MOVIE_SUCCESS,
@@ -40,9 +50,12 @@ export const addMovie = (name, release) => (dispatch) => {
 const isFetching = (state = false, action) => {
   switch (action.type) {
     case FETCH_MOVIE_REQUEST:
+    case ADD_MOVIE_REQUEST:
       return true
     case FETCH_MOVIE_SUCCESS:
     case FETCH_MOVIE_FAILURE:
+    case ADD_MOVIE_SUCCESS:
+    case ADD_MOVIE_FAILURE:
       return false
     default:
       return state
@@ -75,10 +88,22 @@ const data = (state = [], action) => {
   }
 }
 
+const reviewMovie = (state = {}, action) => {
+  switch(action.type) {
+    case ADD_MOVIE_SUCCESS:
+      return action.payload
+    case POST_REVIEW_SUCCESS:
+      return {}
+    default:
+      return state
+  }
+}
+
 const movies = combineReducers({
   isFetching,
   error,
   data,
+  reviewMovie,
 })
 
 export default movies

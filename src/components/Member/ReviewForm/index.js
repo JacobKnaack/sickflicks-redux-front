@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { selectMovie } from '../../../dux/tmdb'
 import { addMovie } from '../../../dux/movies'
-// import { submitReview } from '../../../dux/reviews'
+import { submitReview } from '../../../dux/reviews'
 
 import ReviewEditor from './ReviewEditor'
 import ImageGallery from './ImageGallery'
@@ -14,6 +14,9 @@ class ReviewForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      movieName: '',
+      movieRelease: '',
+      movieImage: '',
       reviewTitle: '',
       author: '',
       reviewHTML: '',
@@ -24,13 +27,28 @@ class ReviewForm extends React.Component {
     this.formFieldTyping = this.formFieldTyping.bind(this)
     this.handleReviewChange = this.handleReviewChange.bind(this)
     this.toggleReviewPreview = this.toggleReviewPreview.bind(this)
+    this.submitReview = this.submitReview.bind(this)
   }
 
   componentWillMount() {
     this.props.selectMovie(this.props.tmdb_id)
     this.setState({
-      author: this.props.author,
+      movieName: this.props.movieTitle,
+      movieRelease: this.props.releaseDate,
+      movieImage: this.props.imagePath,
+      author: this.props.authorData,
     })
+  }
+  
+  componentWillRecieveProps(nextProps) {
+    if(nextProps.movieReviewdata) {
+      this.props.submitReview(
+        this.props.movieReviewData.id,
+        this.state.reviewTitle,
+        this.state.author,
+        this.state.reviewHTML,
+      )
+    }
   }
 
   render() {
@@ -58,10 +76,27 @@ class ReviewForm extends React.Component {
       margin: '10px auto',
     }
 
+    const headerStyle = {
+      backgroundImage: `url(${this.props.imagePath})`,
+      height: '300px',
+      width: 'auto',
+      margin: '0 20px',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'contain',
+      alignText: 'center',
+      fontFamily: 'Ultra',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-end',
+    }
+
     return (
       <div className='reviewForm'>
-        <h2>Review for {this.props.movieTitle}</h2>
-        <h3>By {this.props.author.username}</h3>
+        <div className='formHeading' style={headerStyle}>
+          <h2>{this.props.movieTitle}</h2>
+          <h3>{this.props.releaseDate}</h3>
+        </div>
         <form className='reviewSubmissionForm'>
           <input 
             name='reviewTitle'
@@ -87,6 +122,7 @@ class ReviewForm extends React.Component {
             author={this.state.author}
             reviewText={this.state.reviewHTML}
             toggleReviewPreview={this.toggleReviewPreview}
+            submitReview={this.submitReview}
           />
         )}
         {util.renderIf(this.state.imageGaller,
@@ -114,11 +150,17 @@ class ReviewForm extends React.Component {
       reviewPreview: !this.state.reviewPreview,
     })
   }
+
+  async submitReview() {
+    await this.props.addMovie(this.state.movieName, this.state.movieRelease, this.state.movieImage, this.props.accessToken)
+  }
 }
 
 const mapStateToProps = state => ({
-  author: state.member.data.author, 
+  accessToken: state.member.data.accessToken,
+  authorData: state.member.data.author,
   movieData: state.tmdb.data,
+  movieReviewData: state.movie.reviewMovie,
 })
 
-export default connect(mapStateToProps, { selectMovie })(ReviewForm)
+export default connect(mapStateToProps, { selectMovie, addMovie })(ReviewForm)

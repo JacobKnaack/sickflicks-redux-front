@@ -17,7 +17,6 @@
 }
 
 .editor-container {
-  min-height: 500px;
   background-color: #ffffff;
 
   .ql-editor {
@@ -25,7 +24,7 @@
     p {
       font-family: 'Bellefair', serif;
       margin: 25px auto;
-      font-size: 160%;
+      font-size: 150%;
     }
 
     h2 {
@@ -39,6 +38,8 @@
     blockquote {
       font-family: 'Bellefair', serif;
       font-size: 200%;
+      margin-left: 40px;
+      padding-left: 16px;
     }
 
     iframe {
