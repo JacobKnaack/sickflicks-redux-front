@@ -2,11 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import MovieReviewItem from '../MovieReviewItem'
+import { fetchReviews } from '../../../dux/reviews'
 
 class ReviewList extends React.Component {
 
   componentDidMount() {
-    // this.props.fetchReviews()
+    // console.log(this.props)
+    this.props.fetchReviews()
   }
 
   render() {
@@ -27,6 +29,11 @@ class ReviewList extends React.Component {
 
 const mapStateToProps = state => ({
   movies: state.movies.data,
+  reviews: state.reviews.data,
 })
 
-export default connect(mapStateToProps, null)(ReviewList)
+const mapDispatchToProps = {
+  fetchReviews,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewList)
