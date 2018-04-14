@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { selectMovie } from '../../../dux/tmdb'
 import { addMovie } from '../../../dux/movies'
-import { submitReview } from '../../../dux/reviews'
+import { addReview } from '../../../dux/reviews'
 
 import ReviewEditor from './ReviewEditor'
 import ImageGallery from './ImageGallery'
@@ -18,7 +18,7 @@ class ReviewForm extends React.Component {
       movieRelease: '',
       movieImage: '',
       reviewTitle: '',
-      author: '',
+      author: {},
       reviewHTML: '',
       reviewPreview: false,
       imageGallery: false,
@@ -40,14 +40,19 @@ class ReviewForm extends React.Component {
     })
   }
   
-  componentWillRecieveProps(nextProps) {
-    if(nextProps.movieReviewdata) {
-      this.props.submitReview(
-        this.props.movieReviewData.id,
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.movieReviewData !== this.props.movieReviewData) {
+      this.props.addReview(
+        this.props.accessToken,
+        nextProps.movieReviewData._id,
         this.state.reviewTitle,
-        this.state.author,
+        this.state.author.username,
         this.state.reviewHTML,
       )
+    }
+
+    if (nextProps.postedReviewData !== this.props.postedReviewData) {
+      this.props.history.push('/')
     }
   }
 
@@ -140,8 +145,6 @@ class ReviewForm extends React.Component {
   handleReviewChange(html) {
     this.setState({
       reviewHTML: html
-    }, () => {
-      console.log(this.state.reviewHTML)
     })
   }
 
@@ -160,7 +163,8 @@ const mapStateToProps = state => ({
   accessToken: state.member.data.accessToken,
   authorData: state.member.data.author,
   movieData: state.tmdb.data,
-  movieReviewData: state.movie.reviewMovie,
+  movieReviewData: state.movies.reviewMovie,
+  postedReviewData: state.reviews.data,
 })
 
-export default connect(mapStateToProps, { selectMovie, addMovie })(ReviewForm)
+export default connect(mapStateToProps, { selectMovie, addMovie, addReview })(ReviewForm)

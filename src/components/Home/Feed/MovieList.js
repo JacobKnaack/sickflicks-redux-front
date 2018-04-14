@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { fetchMovies } from '../../dux/movies'
+import { fetchMovies } from '../../../dux/movies'
 
 class MovieList extends React.Component {
 
@@ -11,7 +11,7 @@ class MovieList extends React.Component {
   render() {
     return (
       <div className='movieList'>
-        <h2 className='movieListTitle'>Featured Reviews</h2>
+        
       </div>
     )
   }

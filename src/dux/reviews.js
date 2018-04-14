@@ -5,17 +5,21 @@ export const POST_REVIEW_REQUEST = 'POST_REVIEW_REQUEST'
 export const POST_REVIEW_SUCCESS = 'POST_REVIEW_SUCCESS'
 export const POST_REVIEW_FAILURE = 'POST_REVIEW_FAILURE'
 
-export const postReview = (movieId, title, author, html) => (getState, dispatch) => {
-  const accessToken = getState().member.accessToken
-
+export const addReview = (accessToken, movieId, title, author, html) => (dispatch) => {
   dispatch({
     [CALL_API]: {
-      endpoint: `${__DB_API_URL}/review`,
+      endpoint: `${__DB_API_URL__}/review`,
       method: "POST",
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify({
+        movieId: movieId,
+        title: title,
+        author: author,
+        html: html,
+      }),
       types: [
         POST_REVIEW_REQUEST,
         POST_REVIEW_SUCCESS,
@@ -52,7 +56,7 @@ const error = (state = null, action) => {
 const data = (state = [], action) => {
   switch (action.type) {
     case POST_REVIEW_SUCCESS:
-      return [...state, action.payload]
+      return [action.payload]
     default:
       return state
   }

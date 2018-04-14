@@ -1,7 +1,7 @@
 import React from 'react'
-import News from './News'
+
 import Menu from '../shared/Menu'
-import MovieList from './MovieList'
+import Feed from './Feed'
 import './_home.scss'
 
 class Home extends React.Component {
@@ -10,8 +10,7 @@ class Home extends React.Component {
     return (
       <div className='home container'>
         <Menu />
-        <MovieList />
-        <News />
+        <Feed />
       </div>
     )
   }

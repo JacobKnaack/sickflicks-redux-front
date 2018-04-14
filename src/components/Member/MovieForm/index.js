@@ -33,6 +33,7 @@ class MovieForm extends React.Component {
           movieTitle={this.state.movieTitle}
           releaseDate={this.state.releaseDate}
           imagePath={this.state.movieImage}
+          history={this.props.history}
         />,
         <div>
           <input

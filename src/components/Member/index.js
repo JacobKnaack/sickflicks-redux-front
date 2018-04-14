@@ -23,9 +23,9 @@ class Member extends React.Component {
     this.login = this.login.bind(this)
   }
 
-  // componentWillMount() {
-  //   console.log(this.props)
-  // }
+  componentWillMount() {
+    console.log(this.props)
+  }
 
   render() {
     return (
@@ -73,7 +73,7 @@ class Member extends React.Component {
           </div>
         )}
         {util.renderIf(this.state.movieFormOpen,
-          <MovieForm />
+          <MovieForm history={this.props.history}/>
         )}
       </div>
     )
