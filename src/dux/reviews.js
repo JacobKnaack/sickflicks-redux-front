@@ -1,9 +1,25 @@
 import { combineReducers } from 'redux'
 import { CALL_API } from 'redux-api-middleware'
 
+export const FETCH_REVIEWS_REQUEST = 'FETCH_REVIEWS_REQUEST'
+export const FETCH_REVIEWS_SUCCESS = 'FETCH_REVIEWS_SUCCESS'
+export const FETCH_REVIEWS_FAILURE = 'FETCH_REVIEWS_FAILURE'
+
 export const POST_REVIEW_REQUEST = 'POST_REVIEW_REQUEST'
 export const POST_REVIEW_SUCCESS = 'POST_REVIEW_SUCCESS'
 export const POST_REVIEW_FAILURE = 'POST_REVIEW_FAILURE'
+
+export const fetchMovies = () => (dispatch) => {
+  dispatch({
+    [CALL_API]: {
+      endpoint: `${__DB_API_URL__}/reviews`,
+      method: 'GET',
+      types: [
+
+      ]
+    }
+  })
+}
 
 export const addReview = (accessToken, movieId, title, author, html) => (dispatch) => {
   dispatch({
