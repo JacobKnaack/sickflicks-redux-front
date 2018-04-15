@@ -14,14 +14,27 @@ class ReviewList extends React.Component {
   render() {
     return (
       <div className='movieList'>
-        {this.props.movies.map(movie => 
-          <MovieReviewItem
-            key={movie._id}
-            name={movie.name}
-            release={movie.release}
-            image_path={movie.image_path}
-          />
-        )}
+        {this.props.reviews.map(review => {
+          let imgPath, movieName, release = ''
+          for (const index in this.props.movies) {
+            if( this.props.movies[index]._id === review.movieId ) {
+              imgPath   = this.props.movies[index].image_path
+              movieName = this.props.movies[index].name
+              release   = this.props.movies[index].release
+            }
+          }
+
+          return (<MovieReviewItem
+            key={review._id}
+            movie_name={movieName}
+            release={release}
+            image_path={imgPath}
+            review_id={review._id}
+            title={review.title}
+            author={review.author}
+            created_on={review.created_on}
+          />)
+        })}
       </div>
     )
   }

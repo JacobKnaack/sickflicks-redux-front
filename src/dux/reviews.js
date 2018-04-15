@@ -5,6 +5,10 @@ export const FETCH_REVIEWS_REQUEST = 'FETCH_REVIEWS_REQUEST'
 export const FETCH_REVIEWS_SUCCESS = 'FETCH_REVIEWS_SUCCESS'
 export const FETCH_REVIEWS_FAILURE = 'FETCH_REVIEWS_FAILURE'
 
+export const FETCH_REVIEW_REQUEST = "FETCH_REVIEW_REQUEST"
+export const FETCH_REVIEW_SUCCESS = "FETCH_REVIEW_SUCCESS"
+export const FETCH_REVIEW_FAILURE = "FETCH_REVIEW_FAILURE"
+
 export const POST_REVIEW_REQUEST = 'POST_REVIEW_REQUEST'
 export const POST_REVIEW_SUCCESS = 'POST_REVIEW_SUCCESS'
 export const POST_REVIEW_FAILURE = 'POST_REVIEW_FAILURE'
@@ -18,6 +22,20 @@ export const fetchReviews = () => (dispatch) => {
         FETCH_REVIEWS_REQUEST,
         FETCH_REVIEWS_SUCCESS,
         FETCH_REVIEWS_FAILURE,
+      ]
+    }
+  })
+}
+
+export const loadReview = (reviewId) => (dispatch) => {
+  dispatch({
+    [CALL_API]: {
+      endpoint: `${__DB_API_URL__}/review/${reviewId}`,
+      method: 'GET',
+      types: [
+        FETCH_REVIEW_REQUEST,
+        FETCH_REVIEW_SUCCESS,
+        FETCH_REVIEW_FAILURE,
       ]
     }
   })
@@ -51,11 +69,14 @@ const isFetching = (state = false, action) => {
   switch (action.type) {
     case POST_REVIEW_REQUEST:
     case FETCH_REVIEWS_REQUEST:
+    case FETCH_REVIEW_REQUEST:
       return true
     case POST_REVIEW_SUCCESS:
     case POST_REVIEW_FAILURE:
     case FETCH_REVIEWS_SUCCESS:
     case FETCH_REVIEWS_FAILURE:
+    case FETCH_REVIEW_SUCCESS:
+    case FETCH_REVIEW_FAILURE:
       return false
     default:
       return state
@@ -66,11 +87,14 @@ const error = (state = null, action) => {
   switch (action.type) {
     case POST_REVIEW_FAILURE:
     case FETCH_REVIEWS_FAILURE:
+    case FETCH_REVIEW_FAILURE:
       return action.payload || { message: action.payload.message }
     case POST_REVIEW_REQUEST:
     case POST_REVIEW_SUCCESS:
     case FETCH_REVIEWS_REQUEST:
     case FETCH_REVIEWS_SUCCESS:
+    case FETCH_REVIEW_REQUEST:
+    case FETCH_REVIEW_SUCCESS:
       return false
     default:
       return state
@@ -83,6 +107,8 @@ const data = (state = [], action) => {
       return [...state, action.payload]
     case FETCH_REVIEWS_SUCCESS:
       return [...action.payload]
+    case FETCH_REVIEW_SUCCESS:
+      return [action.payload]
     default:
       return state
   }

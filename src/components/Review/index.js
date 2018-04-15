@@ -1,5 +1,6 @@
 import React from 'react'
-import marked from 'marked'
+import PropTypes from 'prop-types'
+// import marked from 'marked'
 
 import './_review.scss'
 
@@ -16,6 +17,12 @@ class Review extends React.Component {
       </div>
     )
   }
+}
+
+Review.propTypes = {
+  title: PropTypes.string,
+  author: PropTypes.object,
+  reviewText: PropTypes.string,
 }
 
 export default Review

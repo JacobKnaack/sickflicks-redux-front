@@ -1,8 +1,10 @@
 import React from 'react'
 import { Switch, Route, Link } from 'react-router-dom'
-import Home from '../Home'
+
 import Logo from '../../asset/img/sfnp.svg'
+import Home from '../Home'
 import Member from '../Member'
+import Flick from '../Flick'
 
 import './_app.scss'
 
@@ -99,6 +101,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={Home}/>
           <Route path='/member' component={Member} />
+          <Route path='/flick/:reviewId' component={Flick} />
         </Switch>
       </div>
     )
