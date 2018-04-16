@@ -154,8 +154,31 @@ class ReviewForm extends React.Component {
     })
   }
 
-  async submitReview() {
-    await this.props.addMovie(this.state.movieName, this.state.movieRelease, this.state.movieImage, this.props.accessToken)
+  submitReview() {
+    const uriMovieTitle = encodeURIComponent(this.state.movieName)
+    fetch(`${__DB_API_URL__}/movie_title/${uriMovieTitle}`)
+      .then(res => {
+        return res.json()
+      })
+      .then(movieData => {
+        if (movieData) {
+          this.props.addReview(
+            this.props.accessToken,
+            movieData._id,
+            this.state.reviewTitle,
+            this.state.author.username,
+            this.state.reviewHTML,
+          )
+        } else {
+          this.props.addMovie(
+            this.state.movieName,
+            this.state.movieRelease,
+            this.state.movieImage,
+            this.props.accessToken
+          )
+        }
+      })
+      .catch(err => alert(err))
   }
 }
 
