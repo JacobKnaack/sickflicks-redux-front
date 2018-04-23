@@ -24,7 +24,9 @@ class Member extends React.Component {
   }
 
   componentWillMount() {
-    console.log(this.props)
+    if(this.props.member) {
+      this.setState({ username: this.props.member.username })
+    }
   }
 
   render() {

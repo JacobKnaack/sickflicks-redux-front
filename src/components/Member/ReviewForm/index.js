@@ -27,6 +27,7 @@ class ReviewForm extends React.Component {
     this.formFieldTyping = this.formFieldTyping.bind(this)
     this.handleReviewChange = this.handleReviewChange.bind(this)
     this.toggleReviewPreview = this.toggleReviewPreview.bind(this)
+    this.toggleImageGallery = this.toggleImageGallery.bind(this)
     this.submitReview = this.submitReview.bind(this)
   }
 
@@ -113,6 +114,7 @@ class ReviewForm extends React.Component {
           <ReviewEditor 
             handleReviewChange={this.handleReviewChange}
             reviewHTML={this.state.reviewHTML}
+            toggleImageGallery={this.toggleImageGallery}
           />
           <input
             type='button'
@@ -130,7 +132,7 @@ class ReviewForm extends React.Component {
             submitReview={this.submitReview}
           />
         )}
-        {util.renderIf(this.state.imageGaller,
+        {util.renderIf(this.state.imageGallery,
           <ImageGallery />
         )}
       </div>
@@ -151,6 +153,12 @@ class ReviewForm extends React.Component {
   toggleReviewPreview() {
     this.setState({
       reviewPreview: !this.state.reviewPreview,
+    })
+  }
+
+  toggleImageGallery() {
+    this.setState({
+      imageGallery: !this.state.imageGallery
     })
   }
 
