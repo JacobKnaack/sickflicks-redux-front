@@ -5,7 +5,6 @@ import { addMovie } from '../../../dux/movies'
 import { addReview } from '../../../dux/reviews'
 
 import ReviewEditor from './ReviewEditor'
-import ImageGallery from './ImageGallery'
 import Preview from './Preview'
 import * as util from '../../../lib/util'
 import './_reviewForm.scss'
@@ -21,13 +20,11 @@ class ReviewForm extends React.Component {
       author: {},
       reviewHTML: '',
       reviewPreview: false,
-      imageGallery: false,
     }
 
     this.formFieldTyping = this.formFieldTyping.bind(this)
     this.handleReviewChange = this.handleReviewChange.bind(this)
     this.toggleReviewPreview = this.toggleReviewPreview.bind(this)
-    this.toggleImageGallery = this.toggleImageGallery.bind(this)
     this.submitReview = this.submitReview.bind(this)
   }
 
@@ -114,7 +111,6 @@ class ReviewForm extends React.Component {
           <ReviewEditor 
             handleReviewChange={this.handleReviewChange}
             reviewHTML={this.state.reviewHTML}
-            toggleImageGallery={this.toggleImageGallery}
           />
           <input
             type='button'
@@ -131,9 +127,6 @@ class ReviewForm extends React.Component {
             toggleReviewPreview={this.toggleReviewPreview}
             submitReview={this.submitReview}
           />
-        )}
-        {util.renderIf(this.state.imageGallery,
-          <ImageGallery />
         )}
       </div>
     )
@@ -153,12 +146,6 @@ class ReviewForm extends React.Component {
   toggleReviewPreview() {
     this.setState({
       reviewPreview: !this.state.reviewPreview,
-    })
-  }
-
-  toggleImageGallery() {
-    this.setState({
-      imageGallery: !this.state.imageGallery
     })
   }
 
