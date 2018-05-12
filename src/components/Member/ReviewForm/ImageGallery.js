@@ -52,7 +52,7 @@ class ImageGallery extends React.Component {
           <div
             key={image.file_path}
             className='imageContainer'
-            onClick={() => this.props.setImageUrl(`https://image.tmdb.org/t/p/w500/${image.file_path}`)}
+            onClick={() => this.selectImage(`https://image.tmdb.org/t/p/w500/${image.file_path}`)}
           >
             <img
               style={imageStyle}
@@ -71,7 +71,7 @@ class ImageGallery extends React.Component {
   }
 
   selectImage(url) {
-    this.props.setImageUrl(url)
+    this.props.imageHandler(url)
     this.props.toggleGallery()
   }
 }

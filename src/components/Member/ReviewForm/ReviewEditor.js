@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactQuill from 'react-quill'
+import ReactQuill, { Quill } from 'react-quill'
 import quill from 'quill'
 
 import ImageGallery from './ImageGallery'
@@ -13,7 +13,29 @@ class ReviewEditor extends React.Component {
     }
 
     this.toggleGallery = this.toggleGallery.bind(this)
-    this.setImageUrl = this.setImageUrl.bind(this)
+    this.imageHandler = this.imageHandler.bind(this)
+
+    this.modules = {
+      toolbar: {
+        container: [
+          [{ 'header': '2' }],
+          ['italic', 'strike', 'blockquote'],
+          ['link', 'video', 'image'],
+        ],
+          handlers: {
+          'image': () => this.toggleGallery()
+        }
+      },
+      clipboard: {
+        matchVisual: false,
+        }
+    }
+
+    this.formats = [
+      'header',
+      'italic', 'strike', 'blockquote',
+      'link', 'video', 'image'
+    ]
   }
 
   render() {
@@ -27,15 +49,15 @@ class ReviewEditor extends React.Component {
         {util.renderIf(this.state.imageSelectorOpen,
           <ImageGallery
             toggleGallery={this.toggleGallery}
-            setImageUrl={this.setImageUrl}
+            imageHandler={this.imageHandler}
           />
         )}
         <ReactQuill
           ref={(el) => this.quillRef = el}
           onChange={this.props.handleReviewChange}
           value={this.props.reviewHTML}
-          modules={this.quillModules}
-          formats={this.quillFormats}
+          modules={this.modules}
+          formats={this.formats}
           bounds={'.reviewSubmissionForm'}
           style={editorStyle}
           theme='snow'
@@ -45,44 +67,15 @@ class ReviewEditor extends React.Component {
     )
   }
 
-  quillModules = {
-    toolbar: {
-      container: [
-        [{ 'header': '2' }],
-        ['italic', 'strike', 'blockquote'],
-        ['link', 'video', 'image'],
-      ],
-      handlers: {
-        'image': () => this.toggleGallery()
-      }
-    },
-    clipboard: {
-      matchVisual: false,
-    }
-  }
-
-  quillFormats = [
-    'header',
-    'italic', 'strike', 'blockquote',
-    'link', 'video', 'image'
-  ]
-
-  imageHandler() {
-    // const Quill = ReactQuill.Quill
-    // var range = this.quill.getSelection()
-    // var value = prompt('What is the image URL');
-    // this.quill.insertEmbed(range.index, 'image', value, Quill.sources.USER)
-    // need to use ReactQuill getEditor method
+  imageHandler(imageUrl) {
+    const range = this.quillRef.getEditor().getSelection()
+    this.quillRef.getEditor().insertEmbed(range.index, 'image', imageUrl, Quill.sources.User)
   }
 
   toggleGallery() {
     this.setState({
       imageSelectorOpen: !this.state.imageSelectorOpen,
     })
-  }
-
-  setImageUrl(imageUrl) {
-    console.log(imageUrl)
   }
 }
 
