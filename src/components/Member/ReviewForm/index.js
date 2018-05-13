@@ -61,6 +61,10 @@ class ReviewForm extends React.Component {
     }
   }
 
+  componentDidUpdate() {
+    this.scrollToBottom()
+  }
+
   render() {
     const titleInputStyle = {
       outline: 'none',
@@ -185,6 +189,7 @@ class ReviewForm extends React.Component {
             onClick={this.toggleReviewPreview}
           />
           <input
+            ref={el => { this.el = el }}
             type='button'
             value='Cancel'
             style={cancelBttnStyle}
@@ -224,6 +229,11 @@ class ReviewForm extends React.Component {
       reviewHTML: html
     })
   }
+
+ scrollToBottom() {
+  //  console.log(this.el.scrollIntoView())
+   this.el.scrollIntoView()
+ }
 
   toggleReviewPreview() {
     this.setState({

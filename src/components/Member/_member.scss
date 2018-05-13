@@ -3,12 +3,14 @@
   top: 200px;
   left: 50%;
   margin-left: calc(-90%/2);
+  margin-bottom: 64px;
   width: 90%;
   min-height: calc(100vh - 400px);
   background-color: #d3d3d3;
   border-radius: 10px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   transition: 0.5s ease-in-out;
+  overflow-y: auto;
 }
 
 .movieFormActive {
@@ -16,7 +18,7 @@
   top: 125px;
   left: 50%;
   margin-left: calc(-90%/2);
-  min-height: calc(100vh - 250px);
+  min-height: calc(100vh - 200px);
   transition: 0.5s ease-in-out;
 }
 
