@@ -17,6 +17,7 @@ class ReviewForm extends React.Component {
       movieRelease: '',
       movieImage: '',
       reviewTitle: '',
+      genres: [],
       author: {},
       reviewHTML: '',
       reviewPreview: false,
@@ -39,6 +40,12 @@ class ReviewForm extends React.Component {
   }
   
   componentWillReceiveProps(nextProps) {
+    if(nextProps.movieData !== this.props.movieData) [
+      this.setState({
+        genres: nextProps.movieData.genres
+      })
+    ]
+
     if (nextProps.movieReviewData !== this.props.movieReviewData) {
       this.props.addReview(
         this.props.accessToken,
@@ -55,14 +62,15 @@ class ReviewForm extends React.Component {
   }
 
   render() {
-    const inputStyle = {
+    const titleInputStyle = {
       outline: 'none',
       width: '500px',
-      height: '30px',
-      lineHeight: '30px',
-      margin: '0 auto 10px auto',
+      height: '40px',
+      lineHeight: '40px',
+      margin: '15px auto 10px auto',
       fontSize: '100%',
       border: 'none',
+      borderRadius: '5px',
     }
 
     const textareaStyle= {
@@ -79,31 +87,89 @@ class ReviewForm extends React.Component {
       margin: '10px auto',
     }
 
-    const headerStyle = {
-      backgroundImage: `url(${this.props.imagePath})`,
-      height: '300px',
+    const cancelBttnStyle = {
+      width: '100px',
+      height: '40px',
+      margin: '10px auto',
+    }
+
+    const headingStyle = {
+      minHeight: '300px',
       width: 'auto',
-      margin: '0 20px',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'contain',
+      margin: '10px 20px',
       alignText: 'center',
       fontFamily: 'Ultra',
       display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      backgroundColor: '#ffffff',
+      borderRadius: '10px',
+      boxShadow: '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)',
+    }
+
+    const headingInfoStyle = {
+      display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'flex-end',
+      justifyContent: 'flex-start',
+      width: 'calc(100% - 200px)',
+      margin: '20px 0',
+    }
+
+    const headingImageStyle = {
+      maxWidth: '200px',
+      maxHeight: '300px',
+      width: 'auto',
+      height: 'auto',
+      marginRight: '10px',
+      display: 'inline-block',
+      borderRadius: '10px 0 0 10px',
+    }
+
+    const titleStyle = {
+      fontSize: '400%',
+      width: '80%',
+      textAlign: 'left',
+      borderBottom: '2px solid #D54B97',
+      color: '#696969',
+      margin: '0 auto'
+    }
+
+    const releaseStyle = {
+      fontSize: '150%',
+      width: '80%',
+      margin: '0 auto',
+    }
+
+    const genreStyle = {
+      borderRadius: '5px',
+      backgroundColor: '#696969',
+      color: '#ffffff',
+      width: '25%',
+      margin: '5px 4px',
+      fontFamily: 'Saira, sans-serif',
+      textAlign: 'center',
     }
 
     return (
       <div className='reviewForm'>
-        <div className='formHeading' style={headerStyle}>
-          <h2>{this.props.movieTitle}</h2>
-          <h3>{this.props.releaseDate}</h3>
+        <div className='formHeading' style={headingStyle}>
+          <img
+            style={headingImageStyle}
+            src={this.props.imagePath}
+            alt={`${this.props.movieTitle} image`}
+          />
+          <div className='formHeading-reviewInfo' style={headingInfoStyle}>
+            <h2 style={titleStyle}>{this.props.movieTitle}</h2>
+            <h3 style={releaseStyle}>{util.formatMovieRelease(this.props.releaseDate)}</h3>
+            <div className='genres'>
+              {this.state.genres.map( genre => <p key={genre.id} style={genreStyle}>{genre.name}</p> )}
+            </div>
+          </div>
         </div>
         <form className='reviewSubmissionForm'>
           <input 
             name='reviewTitle'
-            style={inputStyle}
+            style={titleInputStyle}
             value={this.state.reviewTitle}
             onChange={this.formFieldTyping}
             placeholder='Title (Required)'
@@ -118,6 +184,12 @@ class ReviewForm extends React.Component {
             style={previewBttnStyle}
             onClick={this.toggleReviewPreview}
           />
+          <input
+            type='button'
+            value='Cancel'
+            style={cancelBttnStyle}
+            onClick={this.props.resetReviewForm}
+          />
         </form>
         {util.renderIf(this.state.reviewPreview,
           <Preview 
@@ -130,6 +202,16 @@ class ReviewForm extends React.Component {
         )}
       </div>
     )
+  }
+
+  cancelReview() {
+    this.setState({
+      movieName: '',
+      movieRelease: '',
+      movieImage: '',
+      author: '',
+      genres: [],
+    })
   }
 
   formFieldTyping(e) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { searchMovies } from '../../../dux/tmdb'
+import { searchMovies, resetData } from '../../../dux/tmdb'
 
 import ReviewForm from '../ReviewForm'
 import * as util from '../../../lib/util'
@@ -16,10 +16,9 @@ class MovieForm extends React.Component {
       releaseDate: '',
       tmdb_id: null,
       reviewArray: [],
-      formOpen: false,
     }
 
-    this.toggleReviewForm = this.toggleReviewForm.bind(this)
+    this.resetReviewForm = this.resetReviewForm.bind(this)
     this.movieSearch = this.movieSearch.bind(this)
     this.selectMovie = this.selectMovie.bind(this)
   }
@@ -34,6 +33,7 @@ class MovieForm extends React.Component {
           releaseDate={this.state.releaseDate}
           imagePath={this.state.movieImage}
           history={this.props.history}
+          resetReviewForm={this.resetReviewForm}
         />,
         <div>
           <input
@@ -88,10 +88,11 @@ class MovieForm extends React.Component {
     return movieSearchElements
   }
 
-  toggleReviewForm() {
+  resetReviewForm() {
     this.setState({
-      formOpen: !this.state.formOpen,
-    })
+      movieTitle: '',
+      releaseDate: '',
+    }, () => this.props.resetData())
   }
 
   movieSearch(e) {
@@ -115,6 +116,7 @@ class MovieForm extends React.Component {
 
 MovieForm.propTypes = {
   searchMovies: PropTypes.func,
+  resetData: PropTypes.func
 }
 
 const mapStateToProps = state => ({
@@ -123,4 +125,4 @@ const mapStateToProps = state => ({
   movieSearch: state.tmdb.data
 })
 
-export default connect(mapStateToProps, { searchMovies })(MovieForm)
+export default connect(mapStateToProps, { searchMovies, resetData })(MovieForm)

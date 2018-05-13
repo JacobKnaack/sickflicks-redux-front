@@ -13,8 +13,17 @@ class MemberMenu extends React.Component {
                   this.props.toggleMovieForm()
                   this.props.menuSelect()
                 }} >
-          <i className="fas fa-pen-square"></i>
+          <i className="fas fa-plus"></i>
           <p>Write a Review</p>
+        </button>
+        <button id='updateReview'
+                className='memberMenuBttn'
+                onClick={() => {
+                  // this.props.toggleUpdateForm()
+                  this.props.menuSelect()
+                }} >
+          <i className="far fa-edit"></i>
+          <p>Update a Review</p>
         </button>
       </div>
     )
@@ -23,6 +32,7 @@ class MemberMenu extends React.Component {
 
 MemberMenu.propTypes = {
   toggleMovieForm: PropTypes.func,
+  menuSelect: PropTypes.func,
 }
 
 export default MemberMenu

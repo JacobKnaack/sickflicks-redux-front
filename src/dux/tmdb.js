@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import { CALL_API } from 'redux-api-middleware'
+import { LOGOUT } from './member'
 
 export const SEARCH_MDB_REQUEST = 'SEARCH_MDB_REQUEST'
 export const SEARCH_MDB_SUCCESS = 'SEARCH_MDB_SUCCESS'
@@ -8,6 +9,8 @@ export const SEARCH_MDB_FAILURE = 'SEARCH_MDB_FAILURE'
 export const SELECT_MDB_MOVIE_REQUEST = 'SELECT_MDB_MOVIE_REQUEST'
 export const SELECT_MDB_MOVIE_SUCCESS = 'SELECT_MDB_MOVIE_SUCCESS'
 export const SELECT_MDB_MOVIE_FAILURE = 'SELECT_MDB_MOVIE_FAILURE'
+
+export const RESET_MDB_DATA = 'RESET_MDB_DATA'
 
 export const searchMovies = (movieQuery) => (dispatch) => {
   dispatch({
@@ -36,6 +39,10 @@ export const selectMovie = (movieId) => (dispatch) => {
     }
   })
 }
+
+export const resetData = () => ({
+  type: RESET_MDB_DATA,
+})
 
 const isFetching = (state = false, action) => {
   switch (action.type) {
@@ -73,6 +80,9 @@ const data = (state = [], action) => {
       return [...action.payload.results]
     case SELECT_MDB_MOVIE_SUCCESS:
       return action.payload
+    case RESET_MDB_DATA:
+    case LOGOUT:
+      return []
     default:
       return state
   }

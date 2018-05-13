@@ -103,6 +103,7 @@ class App extends React.Component {
           <Route path='/member' component={Member} />
           <Route path='/flick/:reviewId' component={Flick} />
         </Switch>
+        <h5 className='copyright'>SFNP 2018</h5>
       </div>
     )
   }

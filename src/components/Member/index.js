@@ -13,6 +13,7 @@ class Member extends React.Component {
     this.state = {
       username: '',
       password: '',
+      memberForm: null,
       movieFormOpen: false,
       menuSelected: false,
     }
@@ -30,14 +31,20 @@ class Member extends React.Component {
   }
 
   render() {
+    let memberClasses = 'member'
+    if (this.state.movieFormOpen) {
+      memberClasses += ' movieFormActive'
+    }
+
     return (
-      <div className='member'>
+      <div className={memberClasses}>
         {util.renderEither(this.props.accessToken,
           <div className='memberArea'>
             <h2 className='username'>Welcome <span>{this.state.username}</span></h2>
             {util.renderIf(!this.state.menuSelected,
               <MemberMenu
                 toggleMovieForm={this.toggleMovieForm}
+                toggleForm={this.toggleForm}
                 menuSelect={this.menuSelect}
               />
             )}
@@ -46,7 +53,7 @@ class Member extends React.Component {
             <i className="memberIcon fas fa-unlock-alt"></i>
             <h2>This is the Member Area for <span id='span1'>sickflicks</span><span id='span2'>.review</span></h2>
             <form id='loginForm' onSubmit={this.login}>
-              <h3>Input your Nit Picker credentials to proceed:</h3>
+              <h3>Please enter your Username and Password:</h3>
               <div id='loginForm-username'>
                 <label>username:</label>
                 <input
@@ -72,6 +79,10 @@ class Member extends React.Component {
                 value='Submit'
               />
             </form>
+            <div>
+              <p>not a member?</p>
+              <h3>Sign Up</h3>
+            </div>
           </div>
         )}
         {util.renderIf(this.state.movieFormOpen,
@@ -89,6 +100,10 @@ class Member extends React.Component {
   handleInputChange(e) {
     const { name, value } = e.target
     this.setState({ [name]: value })
+  }
+
+  toggleForm(form) {
+    this.setState({memberForm: form})
   }
 
   toggleMovieForm() {
