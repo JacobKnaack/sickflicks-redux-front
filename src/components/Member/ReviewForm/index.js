@@ -98,7 +98,7 @@ class ReviewForm extends React.Component {
     }
 
     const headingStyle = {
-      minHeight: '300px',
+      height: '300px',
       width: 'auto',
       margin: '10px 20px',
       alignText: 'center',
@@ -120,21 +120,19 @@ class ReviewForm extends React.Component {
     }
 
     const headingImageStyle = {
-      maxWidth: '200px',
-      maxHeight: '300px',
       width: 'auto',
-      height: 'auto',
+      height: '100%',
       marginRight: '10px',
       display: 'inline-block',
       borderRadius: '10px 0 0 10px',
     }
 
     const titleStyle = {
-      fontSize: '400%',
+      fontSize: '350%',
       width: '80%',
       textAlign: 'left',
-      borderBottom: '2px solid #D54B97',
-      color: '#696969',
+      borderBottom: '2px solid #00FFBC',
+      color: '#ffffff',
       margin: '0 auto'
     }
 
@@ -142,13 +140,14 @@ class ReviewForm extends React.Component {
       fontSize: '150%',
       width: '80%',
       margin: '0 auto',
+      color: '#D0C8C0',
     }
 
     const genreStyle = {
       borderRadius: '5px',
-      backgroundColor: '#696969',
+      backgroundColor: '#D13F8D',
       color: '#ffffff',
-      width: '25%',
+      width: '20%',
       margin: '5px 4px',
       fontFamily: 'Saira, sans-serif',
       textAlign: 'center',
@@ -230,10 +229,12 @@ class ReviewForm extends React.Component {
     })
   }
 
- scrollToBottom() {
-  //  console.log(this.el.scrollIntoView())
-   this.el.scrollIntoView()
- }
+  scrollToBottom(offset = 0) {
+  const top = this.el.getBoundingClientRect().top
+  if ( (top + offset)  >= 0 && (top - offset) <= window.innerHeight) {
+      this.el.scrollIntoView()
+    }
+  }
 
   toggleReviewPreview() {
     this.setState({
