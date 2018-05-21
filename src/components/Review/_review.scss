@@ -1,8 +1,12 @@
 .review {
   background-color: #ffffff;
-  margin: 0 auto;
+  margin: 30px auto 15px auto;
   width: 90%;
   padding: 20px 0;
+}
+
+.preview .review {
+  margin-top: 60px !important;
 }
 
 .reviewTitle {
@@ -41,6 +45,7 @@
     line-height: 25px;
     font-size: 105%;
     overflow-wrap: normal;
+    word-wrap: break-word;
   }
 
   img {
