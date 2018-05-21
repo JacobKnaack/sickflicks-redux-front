@@ -2,6 +2,7 @@
   background-color: #ffffff;
   margin: 0 auto;
   width: 90%;
+  padding: 20px 0;
 }
 
 .reviewTitle {
@@ -13,6 +14,11 @@
 .reviewHeader {
   width: 90%;
   margin: 0 auto;
+}
+
+.reviewAuthor {
+  font-family: 'Saira', sans-serif;
+  font-weight: 500;
 }
 
 .reviewText {
@@ -35,6 +41,14 @@
     line-height: 25px;
     font-size: 105%;
     overflow-wrap: normal;
+  }
+
+  img {
+    display: block;
+    margin: 10px auto;
+    max-width: 500px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    border-radius: 5px;
   }
 
   blockquote {

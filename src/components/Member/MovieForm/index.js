@@ -19,6 +19,7 @@ class MovieForm extends React.Component {
     }
 
     this.resetReviewForm = this.resetReviewForm.bind(this)
+    this.cancelForm = this.cancelForm.bind(this)
     this.movieSearch = this.movieSearch.bind(this)
     this.selectMovie = this.selectMovie.bind(this)
   }
@@ -36,15 +37,23 @@ class MovieForm extends React.Component {
           resetReviewForm={this.resetReviewForm}
         />,
         <div>
-          <input
-            className='moviePrompt'
-            type='text'
-            name='movieTitle'
-            value={this.state.movieTitle}
-            onChange={this.movieSearch}
-            placeholder='What Movie Are You Reviewing?'
-            autoComplete='off'
-          />
+          <div className='promptMenu'>
+            <button
+              className='cancelBtn'
+              onClick={this.cancelForm}
+            >
+              <i className="far fa-times-circle"></i>
+            </button>
+            <input
+                className='moviePrompt'
+                type='text'
+                name='movieTitle'
+                value={this.state.movieTitle}
+                onChange={this.movieSearch}
+                placeholder='What Movie Are You Reviewing?'
+                autoComplete='off'
+              />
+          </div>
           <div className='movieSearchResults'>
             {this.displayMovieSearchList(this.props.movieSearch)}
           </div>
@@ -71,7 +80,7 @@ class MovieForm extends React.Component {
                className='movieSearchListItem'
                onClick={() => this.selectMovie(movie.id, movie.title, movie.release_date, imagePath)}>
             <h3>{movie.title}</h3>
-            <h4>{movie.release_date}</h4>
+            <h4>{util.formatMovieRelease(movie.release_date)}</h4>
             <img src={imagePath} alt={movie.title} />
           </div>
         )
@@ -95,6 +104,12 @@ class MovieForm extends React.Component {
     }, () => this.props.resetData())
   }
 
+  cancelForm() {
+    this.resetReviewForm()
+    this.props.toggleMovieForm()
+    this.props.menuSelect()
+  }
+
   movieSearch(e) {
     const { name, value } = e.target
     this.setState({ [name]: value }, () => {
@@ -116,7 +131,9 @@ class MovieForm extends React.Component {
 
 MovieForm.propTypes = {
   searchMovies: PropTypes.func,
-  resetData: PropTypes.func
+  resetData: PropTypes.func,
+  toggleMovieForm: PropTypes.func,
+  menuSelect: PropTypes.func,
 }
 
 const mapStateToProps = state => ({

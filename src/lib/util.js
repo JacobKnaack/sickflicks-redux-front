@@ -16,7 +16,7 @@ export const formatMovieRelease = (date) => {
       result = 'Februry'
       break
     case 3:
-      result = 'march'
+      result = 'March'
       break
     case 4:
       result = 'April'
@@ -46,7 +46,7 @@ export const formatMovieRelease = (date) => {
       result = 'December'
       break
     default:
-      return 'Date Error'
+      return 'No Date Found'
   }
 
   return result += ` ${day}, ${year}` 

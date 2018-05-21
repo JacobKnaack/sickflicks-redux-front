@@ -25,8 +25,16 @@ class Member extends React.Component {
   }
 
   componentWillMount() {
-    if(this.props.member) {
+    if(this.props.member && !this.state.username) {
       this.setState({ username: this.props.member.username })
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.member !== this.props.member) {
+      this.setState({
+        username: nextProps.member.username,
+      })
     }
   }
 
@@ -79,14 +87,18 @@ class Member extends React.Component {
                 value='Submit'
               />
             </form>
-            <div>
+            {/* <div>
               <p>not a member?</p>
               <h3>Sign Up</h3>
-            </div>
+            </div> */}
           </div>
         )}
         {util.renderIf(this.state.movieFormOpen,
-          <MovieForm history={this.props.history}/>
+          <MovieForm 
+            history={this.props.history}
+            toggleMovieForm={this.toggleMovieForm}
+            menuSelect={this.menuSelect}
+          />
         )}
       </div>
     )
