@@ -43,7 +43,7 @@ class MovieReviewItem extends React.Component {
             <h3 className='reviewTag'>A Sick Flicks Review</h3>
             <div className='genreContainer'>
               {util.renderIf(!this.state.genres.length,
-                <p>Loading...</p>
+                <p className='load'>Loading...</p>
               )}
               {this.state.genres.map(genre => {
                 return (
