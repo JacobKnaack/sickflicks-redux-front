@@ -2,38 +2,62 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-class MovieReviewItem extends React.Component {
-  render() {
-    const styles = {
-      container: {
-        width: '95%',
-        height: '300px',
-        margin: '0 auto',
-        display: 'flex',
-        flexDirection: 'row'
-      },
-      image: {
-        height: '100%',
-        width: 'auto',
-      }
-    }
+import * as util from '../../lib/util'
 
+class MovieReviewItem extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      genres: []
+    }
+  }
+
+  componentWillMount() {
+    // fetching movie genre information
+    fetch(`${__MOVIEDB_API_URL__}/genre/movie/list?api_key=${__MOVIEDB_API_KEY__}&language=en-US`)
+      .then(res => res.json())
+      .then(genreData => {
+        fetch(`${__MOVIEDB_API_URL__}/search/movie?api_key=${__MOVIEDB_API_KEY__}&query=${this.props.movie_name}`)
+          .then(res => res.json())
+          .then(movieGenres => {
+            this.setState({ genres: util.arrayIdMatch(genreData.genres, movieGenres.results[0].genre_ids) })
+          })
+          .catch(err => alert(err))
+      })
+      .catch(err => alert(err))
+  }
+
+  render() {
     return(
-      <div className='movieReviewItem' style={styles.container}>
-        <img
-          src={this.props.image_path}
-          alt={`${this.props.name} poster img`}
-          style={styles.image}
-        />
-        <div className='itemInfo'>
-          <h2>{this.props.movie_name} ({this.props.release}) A Sick Flicks Review:</h2>
-          <h2>
-            <Link to={`/flick/${this.props.review_id}`}>{this.props.title}</Link>
-          </h2>
-          <h3>{this.props.author}</h3>
-          <h3>{this.props.created_on}</h3>
+      <Link 
+        to={`/flick/${this.props.review_id}`}
+        className='reviewLink'
+      >
+        <div className='movieReviewItem'>
+          <img
+            src={this.props.image_path}
+            alt={`${this.props.name} poster img`}
+          />
+          <div className='itemInfo'>
+            <h2>{this.props.movie_name} ({new Date(this.props.release).getFullYear()})</h2> 
+            <h3 className='reviewTag'>A Sick Flicks Review</h3>
+            <div className='genreContainer'>
+              {util.renderIf(!this.state.genres.length,
+                <p>Loading...</p>
+              )}
+              {this.state.genres.map(genre => {
+                return (
+                  <p key={genre}
+                     className='genreName'>
+                    {genre}
+                  </p>
+                )
+              })}
+            </div>
+            <h3 className='reviewDate'>Posted: {util.formatReviewDate(this.props.created_on)}</h3>
+          </div>
         </div>
-      </div>
+      </Link>
     )
   }
 }

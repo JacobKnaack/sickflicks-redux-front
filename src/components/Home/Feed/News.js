@@ -28,7 +28,7 @@ class News extends React.Component {
     )
 
     return (
-      <div className='news container'>
+      <div className='newsContainer'>
         {util.renderIf(newsData.length > 0,
           News(newsData)
         )}

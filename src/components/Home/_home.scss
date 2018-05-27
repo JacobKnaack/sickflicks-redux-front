@@ -2,14 +2,12 @@
   margin-bottom: 64px;
 }
 
-// .news, .movieList {
-//   width: 60%;
-//   margin: 10px auto;
-//   min-height: 200px;
-//   background-color: #d3d3d3;
-//   border-radius: 10px;
-//   box-shadow: 7px 7px 5px #888888;
-// }
+.newsContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
 .newsTitle, .movieListTitle {
   font-family: 'Ultra', serif;
@@ -22,20 +20,41 @@
 }
 
 .newsItem {
-  background-color: #d3d3d3;
-  max-height: 300px;
+  background-color: #000;
+  width: 40%;
   border-radius: 10px;
-  margin: 10px;
-  padding: 10px;
+  margin: 15px;
   min-height: 300px;
-}
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  font-family: 'Saira', sans-serif;
 
-.newsItem .fi-image{
-  max-height: 300px;
+  .fi-info {
+    margin: 10px;
+    color: #fff;
+  }
+
+  .fi-image{
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .fi-title {
+    line-height: 25px;
+    margin: 0 10px;
+
+    a {
+      text-decoration: none;
+      color: #D54B97;
+    }
+  }
 }
 
 .movieList {
   width: 100%;
+}
+
+.reviewLink {
+  text-decoration: none;
 }
 
 .movieReviewItem {
@@ -44,9 +63,8 @@
   background-size: cover;
   background-position: center;
   height: 300px;
-  width: auto;
-  max-width: 850px;
-  margin: 10px auto;
+  width: 80%;
+  margin: 30px auto;
   font-family: Ultra;
   display: flex;
   flex-Direction: row;
@@ -62,9 +80,15 @@
     display: inline-block;
     border-radius: 10px 0 0 10px;
   }
+
+  .reviewTag {
+    font-size: 200%;
+    color: #00FFBC;
+    width: 80%;
+    margin: 0 auto 15px auto;
+    text-align: center;
+  }
 }
-
-
 
 .itemInfo {
   display: flex;
@@ -72,4 +96,40 @@
   justify-content: flex-start;
   width: calc(100% - 200px);
   margin: 20px 0;
+
+  h2 {
+    width: 80%;
+    color: #fff;
+    font-size: 250%;
+    border-bottom: 2px solid #00FFBC;
+    margin: 0 auto;
+  }
+
+.genreContainer {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: fex-start;
+  margin: 0 auto;
+}
+
+  .genreName {
+    color: #fff;
+    border-radius: 6px;
+    background-color: #D54B97;
+    max-width: 180px;
+    text-align: center;
+    padding: 5px;
+    margin: 0 5px;
+    font-size: 100%;
+    font-family: 'Saira', sans-serif;
+  }
+
+   .reviewDate {
+    font-family: 'Saira', sans-serif;
+    font-weight: 100;
+    color: #fff;
+    width: 80%;
+    margin-left: 10%;
+  }
 }

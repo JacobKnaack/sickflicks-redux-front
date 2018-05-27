@@ -7,7 +7,6 @@ import { fetchReviews } from '../../../dux/reviews'
 class ReviewList extends React.Component {
 
   componentDidMount() {
-    // console.log(this.props)
     this.props.fetchReviews()
   }
 
@@ -15,12 +14,13 @@ class ReviewList extends React.Component {
     return (
       <div className='movieList'>
         {this.props.reviews.map(review => {
-          let imgPath, movieName, release = ''
-          for (const index in this.props.movies) {
-            if( this.props.movies[index]._id === review.movieId ) {
-              imgPath   = this.props.movies[index].image_path
-              movieName = this.props.movies[index].name
-              release   = this.props.movies[index].release
+          let movieId, imgPath, movieName, release = ''
+          for (const movie of this.props.movies) {
+            if( movie._id === review.movieId ) {
+              movieId   = movie._id
+              imgPath   = movie.image_path
+              movieName = movie.name
+              release   = movie.release
             }
           }
 
