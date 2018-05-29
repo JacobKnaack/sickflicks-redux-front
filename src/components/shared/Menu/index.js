@@ -7,7 +7,8 @@ class Menu extends React.Component {
     return (
       <div className='menu container'>
         <div className='searchBar'>
-          <input id='searchInput' type='text' placeholder='Search:'/>
+          <i className="fas fa-search"></i>
+          <input id='searchInput' type='text' />
         </div>
       </div>
     )
