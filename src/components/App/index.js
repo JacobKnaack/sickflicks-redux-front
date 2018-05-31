@@ -33,17 +33,18 @@ class App extends React.Component {
     }
 
     const logoStyle = {
-      height: '50%',
-      display: 'block',
-      paddingTop: '20px',
-      margin: '0 auto',
+      position: 'absolute',
+      width: '275px',
+      left: '50vw',
+      marginLeft: '-137.5px',
     }
 
     const subtitleStyle =  {
+      position: 'relative',
+      top: '150px',
       fontFamily: "'Libre Barcode 39 Text', cursive",
       color: '#2f4f4f',
       fontSize: '50px',
-      margin: '20px 0',
       textAlign: 'center',
     }
 
