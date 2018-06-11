@@ -30,7 +30,9 @@ class MovieReviewItem extends React.Component {
   render() {
     return(
       <Link 
-        to={`/flick/${this.props.review_id}`}
+        // changing to movie centered routing instead of review
+        // to={`/flick/${this.props.review_id}`}
+        to={`/flick/${this.props.movie_id}`}
         className='reviewLink'
       >
         <div className='movieReviewItem'>
@@ -40,7 +42,7 @@ class MovieReviewItem extends React.Component {
           />
           <div className='itemInfo'>
             <h2>{this.props.movie_name} ({new Date(this.props.release).getFullYear()})</h2> 
-            <h3 className='reviewTag'>A Sick Flicks Review</h3>
+            <h3 className='reviewTag'>The Sick Flicks Review</h3>
             <div className='genreContainer'>
               {util.renderIf(!this.state.genres.length,
                 <p className='load'>Loading...</p>

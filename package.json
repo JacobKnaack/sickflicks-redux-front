@@ -10,6 +10,7 @@
   "author": "Jacob Knaack",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^1.2.0",
     "history": "^4.7.2",
     "marked": "^0.3.12",
     "prop-types": "^15.6.0",

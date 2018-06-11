@@ -5,34 +5,18 @@ import MovieReviewItem from '../MovieReviewItem'
 import { fetchReviews } from '../../../dux/reviews'
 
 class ReviewList extends React.Component {
-
-  componentDidMount() {
-    this.props.fetchReviews()
-  }
-
   render() {
     return (
       <div className='movieList'>
-        {this.props.reviews.map(review => {
-          let movieId, imgPath, movieName, release = ''
-          for (const movie of this.props.movies) {
-            if( movie._id === review.movieId ) {
-              movieId   = movie._id
-              imgPath   = movie.image_path
-              movieName = movie.name
-              release   = movie.release
-            }
-          }
+        {this.props.movies.map(movie => {
 
           return (<MovieReviewItem
-            key={review._id}
-            movie_name={movieName}
-            release={release}
-            image_path={imgPath}
-            review_id={review._id}
-            title={review.title}
-            author={review.author}
-            created_on={review.created_on}
+            key={movie._id}
+            movie_id={movie._id}
+            movie_name={movie.name}
+            image_path={movie.image_path}
+            release={movie.release}
+            created_on={movie.created_on}
           />)
         })}
       </div>
@@ -42,11 +26,6 @@ class ReviewList extends React.Component {
 
 const mapStateToProps = state => ({
   movies: state.movies.data,
-  reviews: state.reviews.data,
 })
 
-const mapDispatchToProps = {
-  fetchReviews,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewList)
+export default connect(mapStateToProps, null)(ReviewList)

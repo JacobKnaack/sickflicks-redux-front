@@ -39,6 +39,7 @@ class Member extends React.Component {
   }
 
   render() {
+    console.log(this.state.username)
     let memberClasses = 'member'
     if (this.state.movieFormOpen) {
       memberClasses += ' movieFormActive'

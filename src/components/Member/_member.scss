@@ -1,6 +1,6 @@
 .member {
-  position: absolute;
-  top: 200px;
+  position: relative;
+  top: 10px;
   left: 50%;
   margin-left: calc(-90%/2);
   margin-bottom: 64px;
@@ -14,8 +14,8 @@
 }
 
 .movieFormActive {
-  position: absolute;
-  top: 125px;
+  position: relative;
+  top: 10px;
   left: 50%;
   margin-left: calc(-90%/2);
   min-height: calc(100vh - 200px);
