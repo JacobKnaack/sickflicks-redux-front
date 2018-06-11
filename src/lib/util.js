@@ -66,79 +66,62 @@ export const formatMovieRelease = (date) => {
 
 export const formatReviewDate = (date) => {
   let result = ''
-  const month = new Date(date).getMonth()
-  const dateNum = new Date(date).getDate()
-  const day = new Date(date).getDay()
-  const hours = new Date(date).getHours()
+  let hours = new Date(date).getHours()
   const minutes = new Date(date).getMinutes()
+  const dateNum = new Date(date).getDate()
+  const month = new Date(date).getMonth()
   const year = new Date(date).getFullYear()
-
-  switch (day) {
-    case 0:
-      result = 'Sunday'
-      break
-    case 1:
-      result = 'Monday'
-      break
-    case 2:
-      result = 'Tuesday'
-      break
-    case 3:
-      result = 'Wednesday'
-      break
-    case 4:
-      result = 'Thursday'
-      break
-    case 5:
-      result = 'Friday'
-      break
-    case 6:
-      result = 'Saturday'
-      break
-    default:
-      return 'Incorrect day supplied'
-  }
 
   switch (month) {
     case 0:
-      result += ', Jan'
+      result += 'Jan'
       break
     case 1:
-      result += ', Feb'
+      result += 'Feb'
       break
     case 2:
-      result += ', Mar'
+      result += 'Mar'
       break
     case 3:
-      result += ', Apr'
+      result += 'Apr'
       break
     case 4:
-      result += ', May'
+      result += 'May'
       break
     case 5:
-      result += ', Jun'
+      result += 'Jun'
       break
     case 6:
-      result += ', Jul'
+      result += 'Jul'
       break
     case 7:
-      result += ', Aug'
+      result += 'Aug'
       break
     case 8:
-      result += ', Sep'
+      result += 'Sep'
       break
     case 9:
-      result += ', Oct'
+      result += 'Oct'
       break
     case 10:
-      result += ', Nov'
+      result += 'Nov'
       break
     case 11:
-      result += ', Dec'
+      result += 'Dec'
       break
     default:
       return 'Incorrect Month supplied'
   }
 
-  return result += ` ${dateNum} @ ${hours}:${minutes}`
+  const time = () => {
+    let meridiem = ' AM'
+    if (hours > 12) {
+      hours -= 12
+      meridiem = ' PM'
+    }
+
+    return `${hours}:${minutes} ${meridiem}`
+  }
+
+  return result += ` ${dateNum}, ${year} @ ${time()}`
 }

@@ -10,7 +10,7 @@ class Review extends React.Component {
       <div className='review'>
         <div className='reviewHeader'>
           <h1 className='reviewTitle'>{this.props.title}</h1>
-          <h2 className='reviewAuthor'>by {this.props.author.username}</h2>
+          <h2 className='reviewAuthor'>by {this.props.author}</h2>
         </div>
         <div className='reviewText' 
             dangerouslySetInnerHTML={{__html: this.props.reviewText}} /> 
@@ -21,7 +21,7 @@ class Review extends React.Component {
 
 Review.propTypes = {
   title: PropTypes.string,
-  author: PropTypes.object,
+  author: PropTypes.string,
   reviewText: PropTypes.string,
 }
 

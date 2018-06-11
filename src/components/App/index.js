@@ -53,7 +53,11 @@ class App extends React.Component {
       zIndex: '7',
       top: '10px',
       left: '10px',
-      color: '#2f4f4f',
+      width: '40px',
+      height: '40px',
+      backgroundColor: 'rgba(255, 255, 255, 0.3)',
+      borderRadius: '25px',
+      color: '#ffffff',
       fontSize: '150%',
     }
 
@@ -72,24 +76,26 @@ class App extends React.Component {
     return(
       <div className='app container' style={appStyles} >
         <nav className={navigationMenuClasses}>
-          <Link to='/member' onClick={this.toggleNavigation}>
+          <Link to='/member' onClick={this.toggleNavigation} style={{ textDecoration: 'none'}}>
             <div className='navItem'>
               <i className="fas fa-user-secret"></i>
               <h4>Member Area</h4>
             </div>
           </Link>
-          <Link to='/' onClick={this.toggleNavigation}>
+          <Link to='/' onClick={this.toggleNavigation} style={{ textDecoration: 'none' }}>
             <div className='navItem'>
               <i className="fas fa-home"></i>
               <h4>Home</h4>
             </div>
           </Link>
         </nav>
-        <i
-          style={menuBtnStyle}
-          className="fas fa-bars"
-          onClick={this.toggleNavigation}
-        ></i>
+        <div className='hamburger-button'
+             style={menuBtnStyle}>
+          <i className="fas fa-bars"
+             style={{ position: 'relative', top: '7px', left: '9px' }}
+             onClick={this.toggleNavigation}>
+          </i>
+        </div>
         <header className='appHeader' style={headerStyles}>
           <img style={logoStyle} src={Logo} alt='SFNP' />
           <h3 style={subtitleStyle}>Movie Reviews</h3>
@@ -106,6 +112,7 @@ class App extends React.Component {
           <Route path='/flick/:movieId' component={Flick} />
         </Switch>
         <h5 className='copyright'>SFNP 2018</h5>
+        <div id='bottom-color' />
       </div>
     )
   }

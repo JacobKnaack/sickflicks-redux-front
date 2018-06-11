@@ -68,11 +68,11 @@ class ImageGallery extends React.Component {
                 key={image.file_path}
                 className='imageContainer'
                 style={imageStyle}
-                onClick={() => this.selectImage(`https://image.tmdb.org/t/p/w500/${image.file_path}`)}
+                onClick={() => this.selectImage(`https://image.tmdb.org/t/p/w780/${image.file_path}`)}
               >
                 <img
                   style={{width: '100%', height: '100%' }}
-                  src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}
+                  src={`https://image.tmdb.org/t/p/w780/${image.file_path}`}
                   alt={image.file_path} />
               </div>
             )}
