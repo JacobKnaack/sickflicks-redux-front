@@ -1,5 +1,5 @@
 import React from 'react'
-import Review from '../../Review'
+import Review from '../../Flick/Review'
 
 class Preview extends React.Component {
   render() {

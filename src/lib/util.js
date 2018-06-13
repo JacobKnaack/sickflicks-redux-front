@@ -25,7 +25,7 @@ export const formatMovieRelease = (date) => {
       result = 'January'
       break
     case 1:
-      result = 'Februry'
+      result = 'February'
       break
     case 2:
       result = 'March'
@@ -124,4 +124,8 @@ export const formatReviewDate = (date) => {
   }
 
   return result += ` ${dateNum}, ${year} @ ${time()}`
+}
+
+export const convertToKabob = (string) => {
+  return string.replace(/\s+/g, '-').toLowerCase()
 }
