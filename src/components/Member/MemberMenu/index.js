@@ -12,16 +12,16 @@ class MemberMenu extends React.Component {
                 onClick={() => {
                   this.props.toggleMovieForm()
                   this.props.menuSelect()
-                }} >
+                }}>
           <i className="fas fa-plus"></i>
           <p>Write a Review</p>
         </button>
         <button id='updateReview'
                 className='memberMenuBttn'
                 onClick={() => {
-                  // this.props.toggleUpdateForm()
+                  this.props.toggleUpdateForm()
                   this.props.menuSelect()
-                }} >
+                }}>
           <i className="far fa-edit"></i>
           <p>Update a Review</p>
         </button>

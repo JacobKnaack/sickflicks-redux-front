@@ -7,9 +7,12 @@ import Feed from './Feed'
 import './_home.scss'
 
 class Home extends React.Component {
-
-  componentWillMount(){
+  componentWillMount() {
     this.props.fetchMovies()
+  }
+  
+  componentDidMount() {
+    window.scrollTo(0,0)
   }
 
   render() {

@@ -20,7 +20,8 @@ class Preview extends React.Component {
         </div>
         <Review 
           title={this.props.title}
-          author={this.props.author}
+          created_on={new Date().toString()}
+          author={this.props.author.username}
           reviewText={this.props.reviewText}
         />
       </div>

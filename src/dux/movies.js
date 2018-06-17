@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import { CALL_API } from 'redux-api-middleware'
-import POST_REVIEW_SUCCESS from './reviews'
+import { POST_REVIEW_SUCCESS } from './reviews'
+import { LOGOUT } from './member'
 
 export const FETCH_MOVIE_REQUEST = 'FETCH_MOVIE_REQUEST'
 export const FETCH_MOVIE_SUCCESS = 'FETCH_MOVIE_SUCCESS'
@@ -118,6 +119,7 @@ const reviewMovie = (state = {}, action) => {
     case FETCH_MOVIE_BY_ID_SUCCESS:
       return action.payload
     case POST_REVIEW_SUCCESS:
+    case LOGOUT:
       return {}
     default:
       return state

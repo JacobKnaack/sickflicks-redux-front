@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import { CALL_API } from 'redux-api-middleware'
+import { LOGOUT } from './member'
 
 export const FETCH_REVIEWS_REQUEST = 'FETCH_REVIEWS_REQUEST'
 export const FETCH_REVIEWS_SUCCESS = 'FETCH_REVIEWS_SUCCESS'

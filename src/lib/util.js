@@ -14,6 +14,14 @@ export const arrayIdMatch = (fullList, idMatches) => {
   return result
 }
 
+export const parseUrlQuery = (queryString) => {
+  const regex = new RegExp(`[?&]${queryString}(=([^&#]*)|&|#|$)`)
+  const results = regex.exec(window.location.href)
+  if (!results) return null
+  if (!results[2]) return ''
+  return decodeURIComponent(results[2].replace(/\+/g, ' '))
+}
+
 export const formatMovieRelease = (date) => {
   let result = ''
   const month = new Date(date).getMonth()

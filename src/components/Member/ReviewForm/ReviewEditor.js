@@ -70,6 +70,7 @@ class ReviewEditor extends React.Component {
   imageHandler(imageUrl) {
     const range = this.quillRef.getEditor().getSelection()
     this.quillRef.getEditor().insertEmbed(range.index, 'image', imageUrl, Quill.sources.User)
+    this.quillRef.getEditor().insertText(range.index + 1, 'caption text', { italic: true })
   }
 
   toggleGallery() {

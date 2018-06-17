@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { login } from '../../dux/member'
+import { login, logout } from '../../dux/member'
 import MovieForm from './MovieForm'
 import MemberMenu from './MemberMenu'
 
@@ -15,11 +15,13 @@ class Member extends React.Component {
       password: '',
       memberForm: null,
       movieFormOpen: false,
+      updateFormOpen: false,
       menuSelected: false,
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
     this.toggleMovieForm = this.toggleMovieForm.bind(this)
+    this.toggleUpdateForm = this.toggleUpdateForm.bind(this)
     this.menuSelect = this.menuSelect.bind(this)
     this.login = this.login.bind(this)
   }
@@ -31,15 +33,18 @@ class Member extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.member !== this.props.member) {
+    if(nextProps.member !== this.props.member && nextProps.member) {
       this.setState({
         username: nextProps.member.username,
+      })
+    } else {
+      this.setState({
+        username: '',
       })
     }
   }
 
   render() {
-    console.log(this.state.username)
     let memberClasses = 'member'
     if (this.state.movieFormOpen) {
       memberClasses += ' movieFormActive'
@@ -49,10 +54,18 @@ class Member extends React.Component {
       <div className={memberClasses}>
         {util.renderEither(this.props.accessToken,
           <div className='memberArea'>
-            <h2 className='username'>Welcome <span>{this.state.username}</span></h2>
+            <div className='username'>
+              <h2>Welcome <span>{this.state.username}</span></h2>
+              <div className='logout-btn'
+                   onClick={this.props.logout}>
+                <p>Log Out</p>
+                <i className="fas fa-sign-out-alt"></i>
+              </div>
+            </div>
             {util.renderIf(!this.state.menuSelected,
               <MemberMenu
                 toggleMovieForm={this.toggleMovieForm}
+                toggleUpdateForm={this.toggleUpdateForm}
                 toggleForm={this.toggleForm}
                 menuSelect={this.menuSelect}
               />
@@ -101,6 +114,17 @@ class Member extends React.Component {
             menuSelect={this.menuSelect}
           />
         )}
+        {util.renderIf(this.state.updateFormOpen,
+          <div>
+            <h2>Updating a Movie</h2>
+            <button onClick={() => {
+              this.toggleUpdateForm()
+              this.menuSelect()
+            }}>
+              Close
+            </button>
+          </div>
+        )}
       </div>
     )
   }
@@ -120,15 +144,15 @@ class Member extends React.Component {
   }
 
   toggleMovieForm() {
-    this.setState({
-      movieFormOpen: !this.state.movieFormOpen,
-    })
+    this.setState({ movieFormOpen: !this.state.movieFormOpen })
+  }
+
+  toggleUpdateForm() {
+    this.setState({ updateFormOpen: !this.state.updateFormOpen })
   }
 
   menuSelect() {
-    this.setState({
-      menuSelected: !this.state.menuSelected,
-    })
+    this.setState({ menuSelected: !this.state.menuSelected })
   }
 }
 
@@ -137,4 +161,9 @@ const mapStateToProps = state => ({
   accessToken: state.member.data.accessToken,
 })
 
-export default connect(mapStateToProps, { login })(Member)
+const mapDispatchToProps = {
+  login,
+  logout,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Member)

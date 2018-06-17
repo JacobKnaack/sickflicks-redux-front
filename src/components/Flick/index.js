@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Typography from '@material-ui/core/Typography'
+
 import { fetchMovieById } from '../../dux/movies'
 import { loadReview, fetchReviewsByMovieId } from '../../dux/reviews'
 
@@ -18,6 +19,8 @@ class Flick extends React.Component {
       reviews: [],
       selectedReview: {},
     }
+
+    this.handleReviewSelection = this.handleReviewSelection.bind(this)
   }
 
   componentWillMount() {
@@ -32,18 +35,31 @@ class Flick extends React.Component {
           return new Date(b.updated_on) - new Date(a.update_on);
         })
       }, () => {
-        this.setState({ selectedReview: this.state.reviews[0]})
+        if (!this.state.selectedReview._id) {
+          this.handleReviewSelection(this.state.reviews[0])
+        }
       })
     }
   }
 
+  componentWillUnmount() {
+    this.setState({
+      reviews: [],
+      selectedReview: {},
+    })
+  }
+
   render() {
     const movieTitle = this.props.reviewMovieData.name || ''
+
     return (
       <div className='flick'>
-        {util.renderEither(this.props.fetchingMovieData,
-          <CircularProgress size={100} color='secondary' />,
-          <div>
+        {util.renderEither(this.props.fetchingMovieData || !util.parseUrlQuery('review'),
+          <div className='loadingContainer'>
+            <h2>Loading Review...</h2>
+            <CircularProgress id='loadElement' size={150} color='secondary' />
+          </div>,
+          <div className='reviewContainer'>
             <div className='icon-menu'>
               <div className='review-menu-icon'>
                 <i className="fab fa-reddit-alien"></i>
@@ -73,6 +89,18 @@ class Flick extends React.Component {
             <div className='review-selection-menu'>
               {this.state.reviews.map(review => {
                 let buttonClasses = `review-selection-btn ${review.author.toLowerCase()}`
+                switch (this.state.reviews.length) {
+                  case 1:
+                    buttonClasses += ' single'
+                    break
+                  case 2:
+                    buttonClasses += ' double'
+                    break
+                  case 3:
+                    buttonClasses += ' triple'
+                    break
+                }
+
                 if (review.author === this.state.selectedReview.author) {
                   buttonClasses += ' selected'
                 }
@@ -115,8 +143,13 @@ class Flick extends React.Component {
   }
 
   handleReviewSelection = (reviewObj) => {
-    this.setState({ selectedReview: reviewObj })
+    this.setState({ selectedReview: reviewObj }, () => {
+      if(!window.location.href.includes(reviewObj._id)) {
+        window.location.href += `?review=${reviewObj._id}`
+      }
+    })
   }
+
 }
 
 Flick.propTypes = {

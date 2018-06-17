@@ -1,12 +1,33 @@
 .flick {
+  min-height: 300px;
   margin-top: 25px;
-  padding: 10px 0 10px 0; 
-  background-color: #000000;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg %3E%3Cpolygon fill='%23222222' points='800 100 0 200 0 800 1600 800 1600 200'/%3E%3Cpolygon fill='%23444444' points='800 200 0 400 0 800 1600 800 1600 400'/%3E%3Cpolygon fill='%23666666' points='800 300 0 600 0 800 1600 800 1600 600'/%3E%3Cpolygon fill='%23888888' points='1600 800 800 400 0 800'/%3E%3Cpolygon fill='%23aaaaaa' points='1280 800 800 500 320 800'/%3E%3Cpolygon fill='%23cccccc' points='533.3 800 1066.7 800 800 600'/%3E%3Cpolygon fill='%23EEE' points='684.1 800 914.3 800 800 700'/%3E%3C/g%3E%3C/svg%3E");
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 -5px 5px -5px #333;
+
+  .reviewContainer {
+    padding: 10px 0 10px 0; 
+    background-color: #000000;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg %3E%3Cpolygon fill='%23222222' points='800 100 0 200 0 800 1600 800 1600 200'/%3E%3Cpolygon fill='%23444444' points='800 200 0 400 0 800 1600 800 1600 400'/%3E%3Cpolygon fill='%23666666' points='800 300 0 600 0 800 1600 800 1600 600'/%3E%3Cpolygon fill='%23888888' points='1600 800 800 400 0 800'/%3E%3Cpolygon fill='%23aaaaaa' points='1280 800 800 500 320 800'/%3E%3Cpolygon fill='%23cccccc' points='533.3 800 1066.7 800 800 600'/%3E%3Cpolygon fill='%23EEE' points='684.1 800 914.3 800 800 700'/%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 -5px 5px -5px #333;
+  }
+
+  .loadingContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h2 {
+      font-size: 300%;
+      text-align: center;
+      font-family: 'Ultra', sans-serif;
+    }
+
+    #loadElement {
+      width: 50%;
+      margin: 0 auto;
+    }
+  }
 
   .icon-menu {
     width: 90%;
@@ -24,7 +45,7 @@
 }
 
 .review-title-container {
-  height: 500px;
+  min-height: 500px;
   width: 90%;
   margin: 0 auto;
   display: flex;
@@ -33,7 +54,7 @@
   padding: 15px;
 
   img {
-    height: 100%;
+    max-height: 500px;
     border-radius: 5px;
   }
 
@@ -44,7 +65,8 @@
 
     #movie-name {
       font-family: 'Ultra';
-      font-size: 700%;
+      font-size: 8vw;
+      line-height: 8vw;
       margin: 0 20px 10px 20px;
       color: #231F20;
       text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
@@ -52,7 +74,7 @@
     }
 
     #release-date {
-      font-family: 'Saira', sans-serif;
+      font-family: 'Ultra', sans-serif;
       font-size: 200%;
       margin: 20px;
       color: #D54B97;
@@ -96,6 +118,7 @@
   flex-direction: row;
   justify-content: center;
   box-shadow: 0 4px 2px -2px gray;
+  overflow: hidden;
 
   .jacob {
     background-color: #ff0000;
@@ -133,5 +156,29 @@
     color: #ffffff;
     font-family: 'Saira', sans-serif;
     font-size: 200%;
+  }
+
+  .single {
+    width: 100% !important;
+  }
+
+  .double {
+    width: 30% !important;
+    transition: 0.3s ease-in-out;
+
+    .selected {
+      width: 70% !important;
+      transition: 0.3s ease-in-out;
+    }
+  }
+
+  .triple {
+    width: 20% !important;
+    transition: 0.3s ease-in-out;
+
+    .selected {
+      width: 60% !important;
+      transition: 0.3s ease-in-out;
+    }
   }
 }

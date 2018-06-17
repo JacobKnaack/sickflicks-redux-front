@@ -172,6 +172,7 @@ class ReviewForm extends React.Component {
         <form className='reviewSubmissionForm'>
           <input 
             name='reviewTitle'
+            autoComplete='off'
             style={titleInputStyle}
             value={this.state.reviewTitle}
             onChange={this.formFieldTyping}
