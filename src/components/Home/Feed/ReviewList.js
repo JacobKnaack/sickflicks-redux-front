@@ -28,7 +28,9 @@ class ReviewList extends React.Component {
           </div>
         )}
         {util.renderIf(this.props.loadingMovies,
-          <h3>Loading movies</h3>
+          <div className='movieLoad'>
+            <i className="fas fa-circle-notch fa-spin"></i>
+          </div>
         )}
       </div>
     )

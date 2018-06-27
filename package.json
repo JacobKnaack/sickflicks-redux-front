@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=production node ./node_modules/webpack-dev-server/bin/webpack-dev-server",
     "dev": "NODE_ENV=development node ./node_modules/webpack-dev-server/bin/webpack-dev-server",
-    "deploy": "./deploy.sh"
+    "deploy": "NODE_ENV=production ./deploy.sh"
   },
   "author": "Jacob Knaack",
   "license": "ISC",

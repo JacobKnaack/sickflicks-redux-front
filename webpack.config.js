@@ -3,14 +3,17 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const apiUrl = process.env.DB_URL || 'http://localhost:3000/api';
+let apiUrl = 'https://movie-blog-backend.herokuapp.com/api'
+if (process.env.NODE_ENV !== 'production') {
+  apiUrl = 'http://localhost:3000/api'
+}
 
 module.exports = {
   entry: ['babel-polyfill', './src/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist/'),
     filename: 'js/[name].js',
-    publicPath: '/',
+    publicPath: './',
   },
   devtool: 'source-map',
   devServer: {

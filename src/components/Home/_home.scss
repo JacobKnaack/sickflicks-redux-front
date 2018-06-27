@@ -2,6 +2,19 @@
   margin-bottom: 64px;
 }
 
+.movieLoad {
+  width: 50%;
+  height: 200px;
+  margin: 0 auto;
+  
+  i {
+    position: relative;
+    left: 45%;
+    top: 50px;
+    font-size: 400%;
+  }
+}
+
 .initMovies {
   width: 80%;
   height: 300px;
