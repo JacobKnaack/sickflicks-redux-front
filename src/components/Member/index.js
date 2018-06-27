@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { login, logout } from '../../dux/member'
+import { login, logout, errorSeen } from '../../dux/member'
 import MovieForm from './MovieForm'
 import MemberMenu from './MemberMenu'
 
@@ -24,6 +24,7 @@ class Member extends React.Component {
     this.toggleUpdateForm = this.toggleUpdateForm.bind(this)
     this.menuSelect = this.menuSelect.bind(this)
     this.login = this.login.bind(this)
+    this.logout = this.logout.bind(this)
   }
 
   componentWillMount() {
@@ -57,7 +58,7 @@ class Member extends React.Component {
             <div className='username'>
               <h2>Welcome <span>{this.state.username}</span></h2>
               <div className='logout-btn'
-                   onClick={this.props.logout}>
+                   onClick={this.logout}>
                 <p>Log Out</p>
                 <i className="fas fa-sign-out-alt"></i>
               </div>
@@ -70,10 +71,37 @@ class Member extends React.Component {
                 menuSelect={this.menuSelect}
               />
             )}
+            {util.renderIf(this.state.movieFormOpen,
+              <MovieForm
+                history={this.props.history}
+                toggleMovieForm={this.toggleMovieForm}
+                menuSelect={this.menuSelect}
+              />
+            )}
+            {util.renderIf(this.state.updateFormOpen,
+              <div>
+                <h2>Updating a Movie</h2>
+                <button onClick={() => {
+                  this.toggleUpdateForm()
+                  this.menuSelect()
+                }}>
+                  Close
+            </button>
+              </div>
+            )}
           </div>,
           <div className='login'>
-            <i className="memberIcon fas fa-unlock-alt"></i>
-            <h2>This is the Member Area for <span id='span1'>sickflicks</span><span id='span2'>.review</span></h2>
+            {util.renderEither(this.props.authError,
+              <div className='authError'>
+                <h2>Unauthorized</h2>
+                <p>Please enter a valid username and password</p>
+                <button onClick={this.props.errorSeen}>OK</button>
+              </div>,
+              <div className='authPrompt'>
+                <i className="memberIcon fas fa-unlock-alt"></i>
+                <h2>This is the Member Area for <span id='span1'>sickflicks</span><span id='span2'>.review</span></h2>
+              </div>
+            )}
             <form id='loginForm' onSubmit={this.login}>
               <h3>Please enter your Username and Password:</h3>
               <div id='loginForm-username'>
@@ -107,31 +135,28 @@ class Member extends React.Component {
             </div> */}
           </div>
         )}
-        {util.renderIf(this.state.movieFormOpen,
-          <MovieForm 
-            history={this.props.history}
-            toggleMovieForm={this.toggleMovieForm}
-            menuSelect={this.menuSelect}
-          />
-        )}
-        {util.renderIf(this.state.updateFormOpen,
-          <div>
-            <h2>Updating a Movie</h2>
-            <button onClick={() => {
-              this.toggleUpdateForm()
-              this.menuSelect()
-            }}>
-              Close
-            </button>
-          </div>
-        )}
       </div>
     )
   }
 
   login(e) {
     e.preventDefault()
-    this.props.login(this.state.username, this.state.password)
+    if (this.state.username && this.state.password) {
+      this.props.login(this.state.username, this.state.password)
+    } else {
+      alert('no username or password given')
+    }
+
+    this.setState({
+      username: '',
+      password: '',
+    })
+  }
+
+  logout() {
+    this.props.logout()
+    if (this.state.movieFormOpen) this.setState({ movieFormOpen: false })
+    if (this.state.updateFormOpen) this.setState({ updateFormOpen: false })
   }
 
   handleInputChange(e) {
@@ -159,11 +184,14 @@ class Member extends React.Component {
 const mapStateToProps = state => ({
   member: state.member.data.author,
   accessToken: state.member.data.accessToken,
+  authError: state.member.error,
+  authRequest: state.member.isFetching,
 })
 
 const mapDispatchToProps = {
   login,
   logout,
+  errorSeen,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Member)

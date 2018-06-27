@@ -8,17 +8,17 @@ class NewsItem extends React.Component {
   render() {
     return (
       <div className='newsItem'>
-        <img className='fi-image' src={this.props.imgSrc} />
         <h2 className='fi-title'>
           <a href={this.props.url}
-             target='_blank'>
-             {this.props.title}
+            target='_blank'>
+            {this.props.title}
           </a>
         </h2>
         <div className='fi-info'>
           <h3 className='fi-source'>{this.props.source.name}</h3>
           <h3 className='fi-date'>{util.formatReviewDate(this.props.publishedAt)}</h3>
         </div>
+        <img className='fi-image' src={this.props.imgSrc} />
       </div>
     )
   }

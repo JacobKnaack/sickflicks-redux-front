@@ -7,6 +7,8 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 
 export const LOGOUT = 'LOGOUT'
 
+export const AUTH_ERROR_SEEN = 'AUTH_ERROR_SEEN'
+
 export const login = (username, password) => (dispatch) => {
   const encoded = new Buffer(`${username}:${password}`).toString('base64')
 
@@ -32,6 +34,12 @@ export const logout = () => (dispatch) => {
    })
 }
 
+export const errorSeen = () => (dispatch) => {
+  dispatch({
+    type: AUTH_ERROR_SEEN
+  })
+}
+
 const isFetching = (state = false, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
@@ -50,6 +58,7 @@ const error = (state = null, action) => {
       return action.payload || { message: action.payload.message }
     case LOGIN_REQUEST:
     case LOGIN_SUCCESS:
+    case AUTH_ERROR_SEEN:
       return false
     default:
       return state

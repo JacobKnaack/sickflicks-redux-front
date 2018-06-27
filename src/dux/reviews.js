@@ -18,6 +18,8 @@ export const POST_REVIEW_REQUEST = 'POST_REVIEW_REQUEST'
 export const POST_REVIEW_SUCCESS = 'POST_REVIEW_SUCCESS'
 export const POST_REVIEW_FAILURE = 'POST_REVIEW_FAILURE'
 
+export const REMOVE_REVIEWS = 'REMOVE_REVIEWS'
+
 export const fetchReviews = () => (dispatch) => {
   dispatch({
     [CALL_API]: {
@@ -84,6 +86,12 @@ export const addReview = (accessToken, movieId, title, author, html) => (dispatc
   })
 }
 
+export const removeReviewData = () => (dispatch) => {
+  dispatch({
+    type: REMOVE_REVIEWS
+  })
+}
+
 const isFetching = (state = false, action) => {
   switch (action.type) {
     case POST_REVIEW_REQUEST:
@@ -135,6 +143,8 @@ const data = (state = [], action) => {
       return [...action.payload]
     case FETCH_REVIEW_SUCCESS:
       return [action.payload]
+    case REMOVE_REVIEWS:
+      return []
     default:
       return state
   }

@@ -6,7 +6,7 @@ import ButtonBase from '@material-ui/core/ButtonBase'
 import Typography from '@material-ui/core/Typography'
 
 import { fetchMovieById } from '../../dux/movies'
-import { loadReview, fetchReviewsByMovieId } from '../../dux/reviews'
+import { loadReview, fetchReviewsByMovieId, removeReviewData } from '../../dux/reviews'
 
 import Review from './Review'
 import * as util from '../../lib/util'
@@ -46,7 +46,7 @@ class Flick extends React.Component {
     this.setState({
       reviews: [],
       selectedReview: {},
-    })
+    }, this.props.removeReviewData())
   }
 
   render() {
