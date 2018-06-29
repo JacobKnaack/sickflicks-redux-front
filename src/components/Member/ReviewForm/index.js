@@ -97,6 +97,21 @@ class ReviewForm extends React.Component {
       margin: '10px auto',
     }
 
+    const reviewOptionsStyle = {
+      width: '300px',
+      margin: '0 auto',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    }
+
+    const reviewOptionsBtnStyle = {
+      height: '40px',
+      margin: '10px auto',
+      fontFamily: 'Saira, sans-serif',
+      fontSize: '130%'
+    }
+
     const headingStyle = {
       height: '300px',
       width: 'auto',
@@ -182,19 +197,21 @@ class ReviewForm extends React.Component {
             handleReviewChange={this.handleReviewChange}
             reviewHTML={this.state.reviewHTML}
           />
-          <input
-            type='button'
-            value='preview and submit'
-            style={previewBttnStyle}
-            onClick={this.toggleReviewPreview}
-          />
-          <input
-            ref={el => { this.el = el }}
-            type='button'
-            value='Cancel'
-            style={cancelBttnStyle}
-            onClick={this.props.resetReviewForm}
-          />
+          <div style={reviewOptionsStyle}>
+            <input
+              type='button'
+              value='Preview and Submit'
+              style={reviewOptionsBtnStyle}
+              onClick={this.toggleReviewPreview}
+            />
+            <input
+              ref={el => { this.el = el }}
+              type='button'
+              value='Cancel'
+              style={reviewOptionsBtnStyle}
+              onClick={this.props.resetReviewForm}
+            />
+          </div>
         </form>
         {util.renderIf(this.state.reviewPreview,
           <Preview 

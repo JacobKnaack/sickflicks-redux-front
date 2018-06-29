@@ -75,6 +75,18 @@ class ImageGallery extends React.Component {
       justifyContent: 'center',
       marginTop: '5px',
     }
+    const closeGalleryStyle = {
+      position: 'fixed',
+      zIndex: '102',
+      left: '10vw',
+      top: '5vh',
+      height: '40px',
+      width: '40px',
+      backgroundColor: '#00FFBC',
+      borderRadius: '40px',
+      color: '#ffffff',
+      fontFamily: 'Saira, sans-serif',
+    }
     const btnStyle = {
       textAlign: 'center',
       margin: '0 10px',
@@ -119,6 +131,13 @@ class ImageGallery extends React.Component {
         <div className='imageGallery' style={galleryStyle}>
           {util.renderEither(!this.state.imageUrl,
             <div>
+              <button
+                className='closeGallery'
+                style={closeGalleryStyle}
+                onClick={this.props.toggleGallery}
+              >
+                Close
+              </button>
               <h2 style={imagePromptStyle}>Click on an Image Below</h2>
               <div className='images' style={imagesContainerStyle}>
                 {this.props.tmdbData.images.backdrops.map(image =>
