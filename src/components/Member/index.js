@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { login, logout, errorSeen } from '../../dux/member'
 import MovieForm from './MovieForm'
 import MemberMenu from './MemberMenu'
+import UpdateReview from './UpdateReview'
 
 import * as util from '../../lib/util'
 import './_member.scss'
@@ -79,15 +80,11 @@ class Member extends React.Component {
               />
             )}
             {util.renderIf(this.state.updateFormOpen,
-              <div>
-                <h2>Updating a Movie</h2>
-                <button onClick={() => {
-                  this.toggleUpdateForm()
-                  this.menuSelect()
-                }}>
-                  Close
-            </button>
-              </div>
+              <UpdateReview
+                history={this.props.history}
+                toggleUpdateForm = {this.toggleUpdateForm}
+                menuSelect={this.menuSelect}
+              />
             )}
           </div>,
           <div className='login'>

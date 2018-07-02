@@ -13,7 +13,7 @@ class MemberMenu extends React.Component {
                   this.props.toggleMovieForm()
                   this.props.menuSelect()
                 }}>
-          <i className="fas fa-plus"></i>
+          <i className="far fa-edit"></i>
           <p>Write a Review</p>
         </button>
         <button id='updateReview'
@@ -22,7 +22,7 @@ class MemberMenu extends React.Component {
                   this.props.toggleUpdateForm()
                   this.props.menuSelect()
                 }}>
-          <i className="far fa-edit"></i>
+          <i className="fas fa-wrench"></i>
           <p>Update a Review</p>
         </button>
       </div>

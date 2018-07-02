@@ -213,14 +213,25 @@ class ReviewForm extends React.Component {
             />
           </div>
         </form>
-        {util.renderIf(this.state.reviewPreview,
+        {util.renderEither(this.state.reviewPreview && this.state.reviewTitle.length && this.state.reviewHTML.length > 200,
           <Preview 
             title={this.state.reviewTitle}
             author={this.state.author}
             reviewText={this.state.reviewHTML}
             toggleReviewPreview={this.toggleReviewPreview}
             submitReview={this.submitReview}
-          />
+          />,
+          <div>
+            {util.renderIf(this.state.reviewPreview,  
+              <div className='validator-modal'>
+                <div className='reviewValidationError'>
+                  <h2>Review Validation Error</h2>
+                  <h2>Please make sure you have added a title and some review content!</h2>
+                  <button onClick={this.toggleReviewPreview}>close</button>
+                </div>
+              </div>
+            )}
+          </div>
         )}
       </div>
     )

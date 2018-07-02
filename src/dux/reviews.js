@@ -62,6 +62,16 @@ export const fetchReviewsByMovieId = (movieId) => (dispatch) => {
   })
 }
 
+export const fetchReviewsByAuthor = (name) => (dispatch) => {
+  dispatch({
+    endpoint: `${__DB_API_URL__}/reviews/by/${name}`,
+    method: 'GET',
+    types: [
+
+    ]
+  })
+}
+
 export const addReview = (accessToken, movieId, title, author, html) => (dispatch) => {
   dispatch({
     [CALL_API]: {
