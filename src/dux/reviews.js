@@ -14,6 +14,10 @@ export const FETCH_REVIEWS_BY_MOVIE_ID_REQUEST = 'FETCH_REVIEWS_BY_MOVIE_ID_REQU
 export const FETCH_REVIEWS_BY_MOVIE_ID_SUCCESS = 'FETCH_REVIEWS_BY_MOVIE_ID_SUCCESS'
 export const FETCH_REVIEWS_BY_MOVIE_ID_FAILURE = 'FETCH_REVIEWS_BY_MOVIE_ID_FAILURE'
 
+export const FETCH_REVIEWS_BY_AUTHOR_REQUEST = 'FETCH_REVIEWS_BY_AUTHOR_REQUEST'
+export const FETCH_REVIEWS_BY_AUTHOR_SUCCESS = 'FETCH_REVIEWS_BY_AUTHOR_SUCCESS'
+export const FETCH_REVIEWS_BY_AUTHOR_FAILURE = 'FETCH_REVIEWS_BY_AUTHOR_FAILURE'
+
 export const POST_REVIEW_REQUEST = 'POST_REVIEW_REQUEST'
 export const POST_REVIEW_SUCCESS = 'POST_REVIEW_SUCCESS'
 export const POST_REVIEW_FAILURE = 'POST_REVIEW_FAILURE'
@@ -64,11 +68,15 @@ export const fetchReviewsByMovieId = (movieId) => (dispatch) => {
 
 export const fetchReviewsByAuthor = (name) => (dispatch) => {
   dispatch({
-    endpoint: `${__DB_API_URL__}/reviews/by/${name}`,
-    method: 'GET',
-    types: [
-
-    ]
+    [CALL_API]: {
+      endpoint: `${__DB_API_URL__}/reviews/by/${name}`,
+      method: 'GET',
+      types: [
+        FETCH_REVIEWS_BY_AUTHOR_REQUEST,
+        FETCH_REVIEWS_BY_AUTHOR_SUCCESS,
+        FETCH_REVIEWS_BY_AUTHOR_FAILURE,
+      ]
+    }
   })
 }
 
@@ -108,6 +116,7 @@ const isFetching = (state = false, action) => {
     case FETCH_REVIEWS_REQUEST:
     case FETCH_REVIEW_REQUEST:
     case FETCH_REVIEWS_BY_MOVIE_ID_REQUEST:
+    case FETCH_REVIEWS_BY_AUTHOR_REQUEST:
       return true
     case POST_REVIEW_SUCCESS:
     case POST_REVIEW_FAILURE:
@@ -117,6 +126,8 @@ const isFetching = (state = false, action) => {
     case FETCH_REVIEW_FAILURE:
     case FETCH_REVIEWS_BY_MOVIE_ID_SUCCESS:
     case FETCH_REVIEWS_BY_MOVIE_ID_FAILURE:
+    case FETCH_REVIEWS_BY_AUTHOR_SUCCESS:
+    case FETCH_REVIEWS_BY_AUTHOR_FAILURE:
       return false
     default:
       return state
@@ -129,6 +140,7 @@ const error = (state = null, action) => {
     case FETCH_REVIEWS_FAILURE:
     case FETCH_REVIEW_FAILURE:
     case FETCH_REVIEWS_BY_MOVIE_ID_FAILURE:
+    case FETCH_REVIEWS_BY_AUTHOR_FAILURE:
       return action.payload || { message: action.payload.message }
     case POST_REVIEW_REQUEST:
     case POST_REVIEW_SUCCESS:
@@ -138,6 +150,8 @@ const error = (state = null, action) => {
     case FETCH_REVIEW_SUCCESS:
     case FETCH_REVIEWS_BY_MOVIE_ID_REQUEST:
     case FETCH_REVIEWS_BY_MOVIE_ID_SUCCESS:
+    case FETCH_REVIEWS_BY_AUTHOR_REQUEST:
+    case FETCH_REVIEWS_BY_AUTHOR_SUCCESS:
       return false
     default:
       return state
@@ -150,6 +164,7 @@ const data = (state = [], action) => {
       return [...state, action.payload]
     case FETCH_REVIEWS_SUCCESS:
     case FETCH_REVIEWS_BY_MOVIE_ID_SUCCESS:
+    case FETCH_REVIEWS_BY_AUTHOR_SUCCESS:
       return [...action.payload]
     case FETCH_REVIEW_SUCCESS:
       return [action.payload]

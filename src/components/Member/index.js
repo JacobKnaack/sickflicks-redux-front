@@ -81,6 +81,7 @@ class Member extends React.Component {
             )}
             {util.renderIf(this.state.updateFormOpen,
               <UpdateReview
+                author={this.props.member}
                 history={this.props.history}
                 toggleUpdateForm = {this.toggleUpdateForm}
                 menuSelect={this.menuSelect}
