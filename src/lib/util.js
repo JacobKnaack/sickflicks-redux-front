@@ -2,6 +2,10 @@ export const renderIf = (test, component) => test ? component : null
 
 export const renderEither = (test, component1, component2) => test ? component1 : component2
 
+export const convertUrl = (url) => {
+  return url.replace(/^http:\/\//i, 'https://'); 
+}
+
 export const arrayIdMatch = (fullList, idMatches) => {
   const matchString = idMatches.join('');
   const result = []

@@ -18,7 +18,7 @@ class NewsItem extends React.Component {
           <h3 className='fi-source'>{this.props.source.name}</h3>
           <h3 className='fi-date'>{util.formatReviewDate(this.props.publishedAt)}</h3>
         </div>
-        <img className='fi-image' src={this.props.imgSrc} />
+        <img className='fi-image' src={util.convertUrl(this.props.imgSrc)} />
       </div>
     )
   }
