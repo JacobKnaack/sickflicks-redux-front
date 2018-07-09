@@ -52,10 +52,12 @@ class ReviewEditor extends React.Component {
             imageHandler={this.imageHandler}
           />
         )}
+
         <ReactQuill
           ref={(el) => this.quillRef = el}
           onChange={this.props.handleReviewChange}
           value={this.props.reviewHTML}
+          // value={util.htmlParser(this.props.reviewHTML).editorDisplay}
           modules={this.modules}
           formats={this.formats}
           bounds={'.reviewSubmissionForm'}
@@ -70,7 +72,7 @@ class ReviewEditor extends React.Component {
   imageHandler(imageUrl, imageCaption) {
     const range = this.quillRef.getEditor().selection.savedRange
     this.quillRef.getEditor().insertEmbed(range.index, 'image', imageUrl, Quill.sources.User)
-    this.quillRef.getEditor().insertText(range.index + 1, imageCaption, { italic: true })
+    this.quillRef.getEditor().insertText(range.index + 1, imageCaption)
   }
 
   toggleGallery() {

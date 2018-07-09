@@ -14,7 +14,7 @@ class Review extends React.Component {
           <h2 className='reviewAuthor'>{this.props.author} | <span>{util.formatReviewDate(this.props.created_on)}</span></h2>
         </div>
         <div className='reviewText' 
-            dangerouslySetInnerHTML={{__html: this.props.reviewText}} /> 
+            dangerouslySetInnerHTML={{__html: util.htmlParser(this.props.reviewText).reviewDisplay}} /> 
       </div>
     )
   }

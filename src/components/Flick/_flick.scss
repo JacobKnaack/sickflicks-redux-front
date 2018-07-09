@@ -65,7 +65,7 @@
 
     #movie-name {
       font-family: 'Ultra';
-      font-size: 8vw;
+      font-size: 6vw;
       line-height: 8vw;
       margin: 0 20px 10px 20px;
       color: #231F20;
@@ -102,6 +102,14 @@
         text-decoration: none;
         color: #ffffff;
       }
+    }
+  }
+
+  @media (max-width: 1200px) {
+    min-height: 40vw;
+
+    img {
+      max-height: 40vw;
     }
   }
 }

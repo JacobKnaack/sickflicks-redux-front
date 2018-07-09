@@ -3,7 +3,28 @@ export const renderIf = (test, component) => test ? component : null
 export const renderEither = (test, component1, component2) => test ? component1 : component2
 
 export const convertUrl = (url) => {
-  return url.replace(/^http:\/\//i, 'https://'); 
+  if (url) return url.replace(/^http:\/\//i, 'https://'); 
+  return url
+}
+
+// function that takes in an html string and adds a class to p tags with img tags inside
+export const htmlParser = (html) => {
+  if (html) {
+    var matchArray = html.match(/\<p[^<]*\<img.*?\<\/p\>/g)
+    var editorContent = ''
+    if (matchArray) {
+      for (var match of matchArray) {
+        let captionIndex = match.indexOf('">') + 2
+        editorContent = [match.slice(0, captionIndex), 'caption text: ', match.slice(captionIndex)].join('')
+      }
+    }
+    return {
+      reviewDisplay: html.replace(/\<p[^<]*\<img/g, '<p class="imgContainer"><img'),
+      editorDisplay: html.replace(/\<p[^<]*\<img.*?\<\/p\>/g, editorContent)
+    }
+  }
+  
+  return html
 }
 
 export const arrayIdMatch = (fullList, idMatches) => {

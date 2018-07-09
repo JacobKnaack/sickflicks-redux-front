@@ -130,11 +130,13 @@ class Flick extends React.Component {
               }
               )}
             </div>
-            <Review
-              title={this.state.selectedReview.title}
-              created_on={this.state.selectedReview.created_on}
-              author={this.state.selectedReview.author}
-              reviewText={this.state.selectedReview.html}
+            {util.renderIf(this.state.selectedReview._id, 
+              <Review
+                title={this.state.selectedReview.title}
+                created_on={this.state.selectedReview.created_on}
+                author={this.state.selectedReview.author}
+                reviewText={this.state.selectedReview.html} />
+              )}
             />
           </div>
         )}
@@ -170,6 +172,7 @@ const mapDispatchToProps = {
   fetchMovieById,
   loadReview,
   fetchReviewsByMovieId,
+  removeReviewData,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Flick)

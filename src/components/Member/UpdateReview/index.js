@@ -21,7 +21,7 @@ class UpdateReview extends React.Component {
             {util.renderEither(this.props.reviews.length,
               <div className='authorReviewsList'>
                 {this.props.reviews.map(review => 
-                  <h2>{review.title}</h2>
+                  <h2 key={review.title}>{review.title}</h2>
                 )}
               </div>,
               <div className='noReviews'>
