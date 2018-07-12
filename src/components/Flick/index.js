@@ -135,9 +135,9 @@ class Flick extends React.Component {
                 title={this.state.selectedReview.title}
                 created_on={this.state.selectedReview.created_on}
                 author={this.state.selectedReview.author}
-                reviewText={this.state.selectedReview.html} />
-              )}
-            />
+                reviewText={this.state.selectedReview.html} 
+              />
+            )}
           </div>
         )}
       </div>

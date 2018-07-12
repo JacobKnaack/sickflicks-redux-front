@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import App from './components/App'
 import configureStore from './store/configureStore'
+import registerServiceWorker from './registerServiceWorker'
 
 const { store } = configureStore()
 
@@ -19,3 +20,4 @@ ReactDOM.render(
   document.getElementById('root')
 )
 
+registerServiceWorker()

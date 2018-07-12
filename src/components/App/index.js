@@ -108,7 +108,6 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={Home}/>
           <Route path='/member' component={Member} />
-          {/* <Route path='/flick/:reviewId' component={Flick} /> */}
           <Route path='/flick/:movieId' component={Flick} />
         </Switch>
         <h5 className='copyright'>SFNP 2018</h5>

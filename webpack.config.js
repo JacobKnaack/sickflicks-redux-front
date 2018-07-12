@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 let apiUrl = 'https://movie-blog-backend.herokuapp.com/api'
 if (process.env.NODE_ENV !== 'production') {
@@ -24,6 +25,20 @@ module.exports = {
       template: './public/index.html',
       filename: 'index.html',
       inject: true
+    }),
+    new SWPrecacheWebpackPlugin({
+      dontCacheBustUrlsMatching: /\.\w{8}\./,
+      filename: 'service-worker.js',
+      logger(message) {
+        if (message.indexOf('Total precache size is') === 0) {
+          // This message occurs for every build and is a bit too noisy.
+          return;
+        }
+        console.log(message);
+      },
+      minify: true, // minify and uglify the script
+      navigateFallback: '/index.html',
+      staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
     }),
     new webpack.DefinePlugin({
       __NEWS_API_KEY__:    JSON.stringify("c0332ffabbd54d14be6eecec2a682111"),
