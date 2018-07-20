@@ -1,4 +1,4 @@
-.menu {
+.search-menu {
   width: 80%;
   height: 35px;
   margin: 10px auto;
@@ -11,32 +11,24 @@
   font-family: 'Saira', sans-serif;
   box-shadow: 0 4px 2px -2px gray;
   transition: 0.3s ease-in-out;
+  overflow: hidden;
+  transition: 0.5s ease-in-out;
 }
 
-.menu:hover {
+.search-menu.active {
   height: 45px;
   padding-top: 12px;
   transition: 0.3s ease-in-out;
 }
 
-.homeMenu-icon {
-  width: 50px;
-  margin: 3px 15px 0 15px;
-
-  i {
-    font-size: 180%;
-    color: #ffffff;
-    padding-left: 10px;
-  }
-  i:hover {
-    font-size: 230%;
-    margin-top: -3px;
-  }
+.search-icons {
+  margin: 0 auto;
+  height: 35px;
 }
 
 .searchBar {
   width: 350px;
-  height: 30px;
+  height: 30px !important;
   display: flex;
   margin: 0 45px;
   flex-direction: row;
@@ -61,5 +53,55 @@
     outline: none;
     border: none;
     line-height: 100%;
+  }
+}
+
+.search-icons {
+  display: flex;
+  flex-direction: row;
+
+  .search-menu-icon {
+    width: 50px;
+    margin: 3px 15px 0 15px;
+
+    i {
+      font-size: 180%;
+      color: #ffffff;
+      padding-left: 10px;
+    }
+    i:hover {
+      font-size: 230%;
+      margin-top: -3px;
+    }
+  }
+}
+
+@media(max-width: 700px) {
+  .search-menu {
+    padding: 5px 0 5px 0;
+    flex-direction: column;
+    justify-content: center;
+
+    .searchBar {
+      width: 85%;
+      margin: 0 auto;
+    }
+    
+    .search-icons {
+      display: none;
+      width: 100%;
+    }
+
+    .search-icons.active {
+      display: flex;
+    }
+  }
+
+  .search-menu.active {
+    height: 80px;
+  }
+
+  .search-icons {
+    margin: 5px auto 0 auto;
   }
 }

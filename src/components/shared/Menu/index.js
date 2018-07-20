@@ -6,12 +6,19 @@ class Menu extends React.Component {
     super()
     this.state = {
       searchQuery: '',
+      menuActive: false,
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
   }
 
   render() {
+    let menuClasses = 'search-menu'
+    let searchClasses = 'search-icons'
+    if (this.state.menuActive) {
+      menuClasses += ' active'
+      searchClasses += ' active'
+    }
     let uriEncodedQuery = this.state.searchQuery.split(' ').join('+')
     let anchorPoints = {
       google: `https://www.google.com/search?source=hp&ei=9OIzW-z0KejA0PEPg9yFwA8&q=${uriEncodedQuery}&oq=${uriEncodedQuery}`,
@@ -21,8 +28,12 @@ class Menu extends React.Component {
     }
 
     return (
-      <div className='menu container'>
-        <div className='searchBar'>
+      <div className={menuClasses}>
+        <div 
+          className='searchBar'
+          onFocus={() => this.setState({ menuActive: true })}
+          onBlur={() => this.setState({ menuActive: false })}
+        >
           <i className="fas fa-search"></i>
           <input
             id='searchInput' 
@@ -32,17 +43,19 @@ class Menu extends React.Component {
             onChange={this.handleInputChange}
           />
         </div>
-        <div className='homeMenu-icon'>
-          <i className="fab fa-imdb" onClick={() => this.handleSearchClick(anchorPoints.imdb)}></i>
-        </div>
-        <div className='homeMenu-icon'>
-          <i className="fab fa-reddit-square" onClick={() => this.handleSearchClick(anchorPoints.reddit)}></i>
-        </div>
-        <div className='homeMenu-icon'>
-          <i className="fab fa-twitter-square" onClick={() => this.handleSearchClick(anchorPoints.twitter)}></i>
-        </div>
-        <div className='homeMenu-icon'>
-          <i className="fab fa-google" onClick={() => this.handleSearchClick(anchorPoints.google)}></i>
+        <div className={searchClasses}>
+          <div className='search-menu-icon'>
+            <i className="fab fa-imdb" onClick={() => this.handleSearchClick(anchorPoints.imdb)}></i>
+          </div>
+          <div className='search-menu-icon'>
+            <i className="fab fa-reddit-square" onClick={() => this.handleSearchClick(anchorPoints.reddit)}></i>
+          </div>
+          <div className='search-menu-icon'>
+            <i className="fab fa-twitter-square" onClick={() => this.handleSearchClick(anchorPoints.twitter)}></i>
+          </div>
+          <div className='search-menu-icon'>
+            <i className="fab fa-google" onClick={() => this.handleSearchClick(anchorPoints.google)}></i>
+          </div>
         </div>
       </div>
     )
