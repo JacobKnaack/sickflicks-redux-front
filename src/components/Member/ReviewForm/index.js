@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { selectMovie } from '../../../dux/tmdb'
 import { addMovie } from '../../../dux/movies'
-import { addReview } from '../../../dux/reviews'
+import { addReview,  } from '../../../dux/reviews'
 
 import ReviewEditor from './ReviewEditor'
 import Preview from './Preview'
@@ -36,6 +36,8 @@ class ReviewForm extends React.Component {
       movieRelease: this.props.releaseDate,
       movieImage: this.props.imagePath,
       author: this.props.authorData,
+    }, () => {
+      console.log('fetch reviews for this movie and poplulate review form if it exists with: \n this.setState({ reviewHTML: })')
     })
   }
   
@@ -213,7 +215,7 @@ class ReviewForm extends React.Component {
             />
           </div>
         </form>
-        {util.renderEither(this.state.reviewPreview && this.state.reviewTitle.length && this.state.reviewHTML.length > 200,
+        {util.renderEither(this.state.reviewPreview && this.state.reviewTitle.length && this.state.reviewHTML.length > 100,
           <Preview 
             title={this.state.reviewTitle}
             author={this.state.author}

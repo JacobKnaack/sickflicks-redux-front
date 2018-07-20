@@ -19,62 +19,13 @@ class App extends React.Component {
   }
 
   render() {
-    const appStyles = {
-      width: '100%',
-      backgroundColor: '#01FFC4',
-      minHeight: '100vh',
-    }
-
-    const headerStyles = {
-      width: '100%',
-      zIndex: '5',
-      height: '200px',
-      background: 'linear-gradient(#d74898, #01ffc4)',
-    }
-
-    const logoStyle = {
-      position: 'absolute',
-      width: '275px',
-      left: '50vw',
-      marginLeft: '-137.5px',
-    }
-
-    const subtitleStyle =  {
-      position: 'relative',
-      top: '150px',
-      fontFamily: "'Libre Barcode 39 Text', cursive",
-      color: '#2f4f4f',
-      fontSize: '50px',
-      textAlign: 'center',
-    }
-
-    const menuBtnStyle = {
-      position: 'fixed',
-      zIndex: '7',
-      top: '10px',
-      left: '10px',
-      width: '40px',
-      height: '40px',
-      backgroundColor: 'rgba(255, 255, 255, 0.3)',
-      borderRadius: '25px',
-      color: '#ffffff',
-      fontSize: '150%',
-    }
-
-    const MdbLogoStyling = {
-      width: '75px',
-      position: 'absolute',
-      right: '10px',
-      top: '10px',
-    }
-
     let navigationMenuClasses = 'navigationMenu'
     if (this.state.navMenu) {
       navigationMenuClasses += ' active'
     }
 
     return(
-      <div className='app container' style={appStyles} >
+      <div className='app container'>
         <nav className={navigationMenuClasses}>
           <Link to='/member' onClick={this.toggleNavigation} style={{ textDecoration: 'none'}}>
             <div className='navItem'>
@@ -89,20 +40,25 @@ class App extends React.Component {
             </div>
           </Link>
         </nav>
-        <div className='hamburger-button'
-             style={menuBtnStyle}>
-          <i className="fas fa-bars"
-             style={{ position: 'relative', top: '7px', left: '9px' }}
-             onClick={this.toggleNavigation}>
-          </i>
+        <div className='hamburger-button'>
+          <i 
+            className="fas fa-bars hamburger-icon"
+            onClick={this.toggleNavigation}
+          />
         </div>
-        <header className='appHeader' style={headerStyles}>
-          <img style={logoStyle} src={Logo} alt='SFNP' />
-          <h3 style={subtitleStyle}>Movie Reviews</h3>
+        <header className='appHeader'>
+          <img 
+            className='headerLogo' 
+            src={Logo} 
+            alt='SFNP' 
+            onClick={() => window.location.href = '/'}
+          />
+          <h3 className='headerSubtitle'>Movie Reviews</h3>
           <img
-            style={MdbLogoStyling}
+            className='MdbLogo'
             src='https://www.themoviedb.org/static_cache/v4/logos/powered-by-square-green-11c0c7f8e03c4f44aa54d5e91d9531aa9860a9161c49f5fa741b730c5b21a1f2.svg'
             alt='Powered By The Movie Database'
+            onClick={() => window.location.href = 'https://www.themoviedb.org'}
           />
         </header>
         <Switch>

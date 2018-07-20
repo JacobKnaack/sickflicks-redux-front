@@ -109,13 +109,15 @@
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  transition: 0.5s ease-in-out;
 
-  img {
+  .posterImg {
     width:auto;
     height: 100%;
     margin-right: 10px;
     display: inline-block;
     border-radius: 10px 0 0 10px;
+    transition: 0.5s ease-in-out;
   }
 
   .reviewTag {
@@ -125,52 +127,98 @@
     margin: 0 auto 15px auto;
     text-align: left;
   }
-}
 
-.itemInfo {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: calc(100% - 200px);
-  margin: 20px 0;
-
-  .load {
-    color: #D54B97;
-  }
-
-  h2 {
+  .itemInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: calc(100% - 200px);
+    margin: 20px 0;
+    overflow: auto;
+  
+    .load {
+      color: #D54B97;
+    }
+  
+    .reviewMovie {
+      width: 80%;
+      color: #fff;
+      font-size: 250%;
+      border-bottom: 2px solid #00FFBC;
+      margin: 0 auto;
+      word-break: break-word;
+      hyphens: auto;
+    }
+  
+  .genreContainer {
     width: 80%;
-    color: #fff;
-    font-size: 250%;
-    border-bottom: 2px solid #00FFBC;
+    display: flex;
+    flex-direction: row;
+    justify-content: fex-start;
     margin: 0 auto;
   }
-
-.genreContainer {
-  width: 80%;
-  display: flex;
-  flex-direction: row;
-  justify-content: fex-start;
-  margin: 0 auto;
+  
+    .genreName {
+      color: #fff;
+      border-radius: 6px;
+      background-color: #D54B97;
+      max-width: 180px;
+      text-align: center;
+      padding: 5px;
+      margin: 0 5px;
+      font-size: 100%;
+      font-family: 'Saira', sans-serif;
+    }
+  
+     .reviewDate {
+      font-family: 'Saira', sans-serif;
+      font-weight: 100;
+      color: #fff;
+      width: 80%;
+      margin-left: 10%;
+    }
+  }
 }
 
-  .genreName {
-    color: #fff;
-    border-radius: 6px;
-    background-color: #D54B97;
-    max-width: 180px;
-    text-align: center;
-    padding: 5px;
-    margin: 0 5px;
-    font-size: 100%;
-    font-family: 'Saira', sans-serif;
-  }
+@media(max-width: 600px) {
+  .movieReviewItem {
+    height: 450px;
+    width: 300px !important;
 
-   .reviewDate {
-    font-family: 'Saira', sans-serif;
-    font-weight: 100;
-    color: #fff;
-    width: 80%;
-    margin-left: 10%;
+    .posterImg {
+      margin: 0 auto;
+      border-radius: 10px;
+    }
+
+    .itemInfo {
+      position: absolute;
+      margin-top: 100px;
+      height: 350px;
+      width: 300px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 0 0 10px 10px;
+    }
+  }
+}
+
+@media(max-width: 700px) {
+  .itemInfo {
+    .reviewMovie {
+      font-size: 200% !important;
+    }
+    .reviewTag {
+      font-size: 175% !important;
+    }
+
+    .genreName {
+      font-size: 90% !important;
+      max-width: 150px;
+    }
+  }
+}
+
+@media(max-width: 850px) {
+  .movieReviewItem{
+    width: 90%;
   }
 }

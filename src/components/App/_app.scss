@@ -1,4 +1,11 @@
+.app {
+  width: 100%;
+  background-color: #01ffc4;
+  min-height: 100vh;
+}
+
 .app.container {
+
   .copyright {
     position: relative;
     left: 0;
@@ -65,4 +72,67 @@
   width: 100vw;
   height: 100px;
   background-color: #2CFEC5;
+}
+
+.hamburger-button {
+  position: fixed;
+  z-index: 7;
+  top: 10px;
+  left: 10px;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 25px;
+  color: #ffffff;
+  font-size: 150%;
+
+  .hamburger-icon {
+    position: relative;
+    top: 7px;
+    left: 9px;
+  }
+}
+
+.MdbLogo {
+  width: 75px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.appHeader {
+  width: 100%;
+  z-index: 5;
+  height: 200px;
+  background: linear-gradient(#d74898, #01ffc4);
+
+  .headerLogo {
+    position: absolute;
+    width: 275px;
+    left: 50vw;
+    margin-left: -137.5px;
+    cursor: pointer;
+  }
+
+  .headerSubtitle {
+    position: relative;
+    top: 150px;
+    font-family: 'Libre Barcode 39 Text', cursive;
+    color: #2f4f4f;
+    font-size: 50px;
+    text-align: center;
+  }
+}
+
+@media(max-width: 450px) {
+  .headerLogo {
+    width: 200px !important;
+    top: 25px;
+    margin-left: -100px !important;
+  }
+
+  .MdbLogo {
+    width: 50px !important;
+  }
 }

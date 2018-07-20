@@ -37,11 +37,12 @@ class MovieReviewItem extends React.Component {
       >
         <div className='movieReviewItem'>
           <img
+            className='posterImg'
             src={this.props.image_path}
             alt={`${this.props.name} poster img`}
           />
           <div className='itemInfo'>
-            <h2>{this.props.movie_name} ({new Date(this.props.release).getFullYear()})</h2> 
+            <h2 className='reviewMovie'>{this.props.movie_name} ({new Date(this.props.release).getFullYear()})</h2> 
             <h3 className='reviewTag'>The Sick Flicks Review</h3>
             <div className='genreContainer'>
               {util.renderIf(!this.state.genres.length,
