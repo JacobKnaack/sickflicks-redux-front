@@ -55,7 +55,7 @@
 
 .newsItem {
   background-color: #000;
-  width: 40%;
+  width: 43.5%;
   min-height: 300px;
   border-radius: 10px;
   margin: 15px;
@@ -100,7 +100,7 @@
   background-size: cover;
   background-position: center;
   height: 300px;
-  width: 80%;
+  width: 90%;
   margin: 30px auto;
   font-family: Ultra;
   display: flex;
@@ -199,6 +199,10 @@
       border-radius: 0 0 10px 10px;
     }
   }
+
+  .newsItem {
+    width: 80%;
+  }
 }
 
 @media(max-width: 700px) {
@@ -214,11 +218,5 @@
       font-size: 90% !important;
       max-width: 150px;
     }
-  }
-}
-
-@media(max-width: 850px) {
-  .movieReviewItem{
-    width: 90%;
   }
 }
