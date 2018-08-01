@@ -56,7 +56,7 @@ class App extends React.Component {
           <h3 className='headerSubtitle'>Movie Reviews</h3>
           <img
             className='MdbLogo'
-            src='https://www.themoviedb.org/static_cache/v4/logos/powered-by-square-green-11c0c7f8e03c4f44aa54d5e91d9531aa9860a9161c49f5fa741b730c5b21a1f2.svg'
+            src='https://www.themoviedb.org/assets/1/v4/logos/powered-by-square-green-11c0c7f8e03c4f44aa54d5e91d9531aa9860a9161c49f5fa741b730c5b21a1f2.svg'
             alt='Powered By The Movie Database'
             onClick={() => window.location.href = 'https://www.themoviedb.org'}
           />

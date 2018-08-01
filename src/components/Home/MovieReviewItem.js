@@ -29,9 +29,7 @@ class MovieReviewItem extends React.Component {
 
   render() {
     return(
-      <Link 
-        // changing to movie centered routing instead of review
-        // to={`/flick/${this.props.review_id}`}
+      <Link
         to={`/flick/${this.props.movie_id}`}
         className='reviewLink'
       >
@@ -57,7 +55,7 @@ class MovieReviewItem extends React.Component {
                 )
               })}
             </div>
-            <h3 className='reviewDate'>Posted: {util.formatReviewDate(this.props.created_on)}</h3>
+            <h3 className='reviewDate'>{util.formatReviewDate(this.props.created_on)}</h3>
           </div>
         </div>
       </Link>

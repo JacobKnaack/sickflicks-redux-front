@@ -180,7 +180,7 @@ class Member extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  member: state.member.data.author,
+  member: state.member.data.user,
   accessToken: state.member.data.accessToken,
   authError: state.member.error,
   authRequest: state.member.isFetching,

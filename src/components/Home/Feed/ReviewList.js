@@ -6,6 +6,10 @@ import * as util from '../../../lib/util'
 
 class ReviewList extends React.Component {
   render() {
+    const movies = this.props.movies.sort((a,b) => {
+      return new Date(b.created_on) - new Date(a.created_on)
+    })
+
     return (
       <div className='movieList'>
         {util.renderEither(!this.props.movies.length && !this.props.loadingMovies,
@@ -15,7 +19,7 @@ class ReviewList extends React.Component {
             <p>Please come back later</p>
           </div>,
           <div>
-            {this.props.movies.map(movie => {
+            {movies.map(movie => {
               return (<MovieReviewItem
                 key={movie._id}
                 movie_id={movie._id}

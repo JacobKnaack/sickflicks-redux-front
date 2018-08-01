@@ -143,6 +143,7 @@
     .reviewMovie {
       width: 80%;
       color: #fff;
+      text-shadow: 6px 6px 0px rgba(0,0,0,0.2);
       font-size: 250%;
       border-bottom: 2px solid #00FFBC;
       margin: 0 auto;
@@ -154,7 +155,7 @@
     width: 80%;
     display: flex;
     flex-direction: row;
-    justify-content: fex-start;
+    justify-content: flex-start;
     margin: 0 auto;
   }
   
@@ -198,6 +199,11 @@
       background: rgba(0,0,0,0.4);
       border-radius: 0 0 10px 10px;
     }
+
+    .genreContainer {
+      width: 95% !important;
+      justify-content: center !important;
+    }
   }
 
   .newsItem {
@@ -211,7 +217,7 @@
       font-size: 200% !important;
     }
     .reviewTag {
-      font-size: 175% !important;
+      font-size: 150% !important;
     }
 
     .genreName {

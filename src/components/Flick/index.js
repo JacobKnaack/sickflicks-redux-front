@@ -88,7 +88,7 @@ class Flick extends React.Component {
             </div>
             <div className='review-selection-menu'>
               {this.state.reviews.map(review => {
-                let buttonClasses = `review-selection-btn ${review.author.toLowerCase()}`
+                let buttonClasses = `review-selection-btn ${review.user.toLowerCase()}`
                 switch (this.state.reviews.length) {
                   case 1:
                     buttonClasses += ' single'
@@ -122,7 +122,7 @@ class Flick extends React.Component {
                         color="inherit"
                         className='author-name'
                       >
-                        {review.author}
+                        {review.user}
                       </Typography>
                     </span>
                   </ButtonBase>
@@ -134,7 +134,7 @@ class Flick extends React.Component {
               <Review
                 title={this.state.selectedReview.title}
                 created_on={this.state.selectedReview.created_on}
-                author={this.state.selectedReview.author}
+                author={this.state.selectedReview.user}
                 reviewText={this.state.selectedReview.html} 
               />
             )}

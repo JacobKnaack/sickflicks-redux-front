@@ -32,7 +32,11 @@ class Menu extends React.Component {
         <div 
           className='searchBar'
           onFocus={() => this.setState({ menuActive: true })}
-          onBlur={() => this.setState({ menuActive: false })}
+          onBlur={() => {
+            if (!this.state.searchQuery) {
+              this.setState({ menuActive: false })
+            }
+          }}
         >
           <i className="fas fa-search"></i>
           <input

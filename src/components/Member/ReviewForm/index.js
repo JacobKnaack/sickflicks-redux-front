@@ -303,7 +303,7 @@ class ReviewForm extends React.Component {
 
 const mapStateToProps = state => ({
   accessToken: state.member.data.accessToken,
-  authorData: state.member.data.author,
+  authorData: state.member.data.user,
   movieData: state.tmdb.data,
   movieReviewData: state.movies.reviewMovie,
   postedReviewData: state.reviews.data,

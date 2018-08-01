@@ -96,7 +96,7 @@ export const addReview = (accessToken, movieId, title, author, html) => (dispatc
       body: JSON.stringify({
         movieId: movieId,
         title: title,
-        author: author,
+        user: author,
         html: html,
       }),
       types: [
