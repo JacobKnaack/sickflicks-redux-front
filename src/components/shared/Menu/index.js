@@ -29,7 +29,7 @@ class Menu extends React.Component {
 
     return (
       <div className={menuClasses}>
-        <div 
+        <div
           className='searchBar'
           onFocus={() => this.setState({ menuActive: true })}
           onBlur={() => {
@@ -40,9 +40,10 @@ class Menu extends React.Component {
         >
           <i className="fas fa-search"></i>
           <input
-            id='searchInput' 
+            id='searchInput'
             type='text'
             name='searchQuery'
+            placeholder='...Search'
             value={this.state.searchQuery}
             onChange={this.handleInputChange}
           />

@@ -46,8 +46,8 @@ export const fetchMovieById = (movieId) => (dispatch) => {
 export const addMovie = (name, release, imagePath, accessToken) => (dispatch) => {
   dispatch({
     [CALL_API]: {
-      endpoint: `${__DB_API_URL__}/movie`,
-      method: 'POST'  ,
+      endpoint: `${__DB_API_URL__}/movies`,
+      method: 'POST',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ const data = (state = [], action) => {
 }
 
 const reviewMovie = (state = {}, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case ADD_MOVIE_SUCCESS:
     case FETCH_MOVIE_BY_ID_SUCCESS:
       return action.payload

@@ -16,6 +16,8 @@ class Flick extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      baseUrl: window.location.href,
+      reviewUrl: window.history.state.url || null,
       reviews: [],
       selectedReview: {},
     }
@@ -28,10 +30,14 @@ class Flick extends React.Component {
     this.props.fetchReviewsByMovieId(this.props.match.params.movieId)
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.reviewData !== this.props.reviewData) {
       this.setState({
-        reviews: nextProps.reviewData.sort( (a,b) => {
+        reviews: nextProps.reviewData.sort((a, b) => {
           return new Date(b.updated_on) - new Date(a.update_on);
         })
       }, () => {
@@ -54,7 +60,7 @@ class Flick extends React.Component {
 
     return (
       <div className='flick'>
-        {util.renderEither(this.props.fetchingMovieData || !util.parseUrlQuery('review'),
+        {util.renderEither(this.props.fetchingMovieData || !this.state.reviewUrl,
           <div className='loadingContainer'>
             <h2>Loading Review...</h2>
             <CircularProgress id='loadElement' size={150} color='secondary' />
@@ -101,7 +107,7 @@ class Flick extends React.Component {
                     break
                 }
 
-                if (review.author === this.state.selectedReview.author) {
+                if (review.user === this.state.selectedReview.user) {
                   buttonClasses += ' selected'
                 }
 
@@ -130,12 +136,12 @@ class Flick extends React.Component {
               }
               )}
             </div>
-            {util.renderIf(this.state.selectedReview._id, 
+            {util.renderIf(this.state.selectedReview._id,
               <Review
                 title={this.state.selectedReview.title}
                 created_on={this.state.selectedReview.created_on}
                 author={this.state.selectedReview.user}
-                reviewText={this.state.selectedReview.html} 
+                reviewText={this.state.selectedReview.html}
               />
             )}
           </div>
@@ -146,8 +152,9 @@ class Flick extends React.Component {
 
   handleReviewSelection = (reviewObj) => {
     this.setState({ selectedReview: reviewObj }, () => {
-      if(!window.location.href.includes(reviewObj._id)) {
-        window.location.href += `?review=${reviewObj._id}`
+      if (!window.history.state.url || !window.history.state.url.includes(reviewObj._id)) {
+        window.history.pushState({ url: `?review=${reviewObj._id}` }, 'flick review', `${this.state.baseUrl}?review=${reviewObj._id}`)
+        this.setState({ reviewUrl: window.history.state.url })
       }
     })
   }

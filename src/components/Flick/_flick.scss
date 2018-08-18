@@ -173,20 +173,20 @@
   .double {
     width: 30% !important;
     transition: 0.3s ease-in-out;
+  }
 
-    .selected {
-      width: 70% !important;
-      transition: 0.3s ease-in-out;
-    }
+  .double.selected {
+    width: 70% !important;
+    transition: 0.3s ease-in-out;
   }
 
   .triple {
     width: 20% !important;
     transition: 0.3s ease-in-out;
+  }
 
-    .selected {
-      width: 60% !important;
-      transition: 0.3s ease-in-out;
-    }
+  .triple.selected {
+    width: 60% !important;
+    transition: 0.3s ease-in-out;
   }
 }

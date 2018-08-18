@@ -3,7 +3,7 @@ export const renderIf = (test, component) => test ? component : null
 export const renderEither = (test, component1, component2) => test ? component1 : component2
 
 export const convertUrl = (url) => {
-  if (url) return url.replace(/^http:\/\//i, 'https://'); 
+  if (url) return url.replace(/^http:\/\//i, 'https://');
   return url
 }
 
@@ -23,14 +23,14 @@ export const htmlParser = (html) => {
       editorDisplay: html.replace(/\<p[^<]*\<img.*?\<\/p\>/g, editorContent)
     }
   }
-  
+
   return html
 }
 
 export const arrayIdMatch = (fullList, idMatches) => {
   const matchString = idMatches.join('');
   const result = []
-  for (let i = 0; i < fullList.length; i ++) {
+  for (let i = 0; i < fullList.length; i++) {
     if (matchString.includes(fullList[i].id)) {
       result.push(fullList[i].name)
     }
@@ -40,8 +40,9 @@ export const arrayIdMatch = (fullList, idMatches) => {
 }
 
 export const parseUrlQuery = (queryString) => {
+  console.log(window.history.state.url)
   const regex = new RegExp(`[?&]${queryString}(=([^&#]*)|&|#|$)`)
-  const results = regex.exec(window.location.href)
+  const results = regex.exec(window.history.state.url)
   if (!results) return null
   if (!results[2]) return ''
   return decodeURIComponent(results[2].replace(/\+/g, ' '))
@@ -53,7 +54,7 @@ export const formatMovieRelease = (date) => {
   const day = new Date(date).getDate()
   const year = new Date(date).getFullYear()
 
-  switch(month) {
+  switch (month) {
     case 0:
       result = 'January'
       break
@@ -94,7 +95,7 @@ export const formatMovieRelease = (date) => {
       return 'No Date Found'
   }
 
-  return result += ` ${day}, ${year}` 
+  return result += ` ${day}, ${year}`
 }
 
 export const formatReviewDate = (date) => {
