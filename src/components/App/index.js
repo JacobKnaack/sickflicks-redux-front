@@ -24,33 +24,47 @@ class App extends React.Component {
       navigationMenuClasses += ' active'
     }
 
-    return(
+    let navItemClasses = (itemId) => {
+      console.log(itemId == 'member' && window.location.href.includes('member'))
+      console.log(itemId == 'home' && !window.location.href.includes('member'))
+      if (itemId === 'member' && window.location.href.includes('member')) {
+        return 'navItem active'
+      }
+
+      if (itemId === 'home' && !window.location.href.includes('member')) {
+        return 'navItem active'
+      }
+
+      return 'navItem'
+    }
+
+    return (
       <div className='app container'>
         <nav className={navigationMenuClasses}>
-          <Link to='/member' onClick={this.toggleNavigation} style={{ textDecoration: 'none'}}>
-            <div className='navItem'>
-              <i className="fas fa-user-secret"></i>
-              <h4>Member Area</h4>
-            </div>
-          </Link>
           <Link to='/' onClick={this.toggleNavigation} style={{ textDecoration: 'none' }}>
-            <div className='navItem'>
+            <div className={navItemClasses('home')}>
               <i className="fas fa-home"></i>
               <h4>Home</h4>
             </div>
           </Link>
+          <Link to='/member' onClick={this.toggleNavigation} style={{ textDecoration: 'none' }}>
+            <div className={navItemClasses('member')}>
+              <i className="fas fa-user-secret"></i>
+              <h4>Member Area</h4>
+            </div>
+          </Link>
         </nav>
         <div className='hamburger-button'>
-          <i 
+          <i
             className="fas fa-bars hamburger-icon"
             onClick={this.toggleNavigation}
           />
         </div>
         <header className='appHeader'>
-          <img 
-            className='headerLogo' 
-            src={Logo} 
-            alt='SFNP' 
+          <img
+            className='headerLogo'
+            src={Logo}
+            alt='SFNP'
             onClick={() => window.location.href = '/'}
           />
           <h3 className='headerSubtitle'>Movie Reviews</h3>
@@ -62,7 +76,7 @@ class App extends React.Component {
           />
         </header>
         <Switch>
-          <Route exact path='/' component={Home}/>
+          <Route exact path='/' component={Home} />
           <Route path='/member' component={Member} />
           <Route path='/flick/:movieId' component={Flick} />
         </Switch>

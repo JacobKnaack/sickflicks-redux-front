@@ -15,7 +15,7 @@ class MovieReviewItem extends React.Component {
   }
 
   componentWillMount() {
-    this.fetchMovieGenresWithRetry(5)
+    this.fetchMovieGenresWithRetry(10)
   }
 
   render() {
@@ -63,15 +63,17 @@ class MovieReviewItem extends React.Component {
         fetch(`${__MOVIEDB_API_URL__}/search/movie?api_key=${__MOVIEDB_API_KEY__}&query=${this.props.movie_name}`)
           .then(res => res.json())
           .then(movieGenres => {
-            this.setState({ genres: util.arrayIdMatch(genreData.genres, movieGenres.results[0].genre_ids) })
-          })
-          .catch(err => {
-            if (err.statusCode === 429 && retryCount <= maxRetries) {
-              console.error('429 detected, retrying after ' + err.headers['retry-after'] + 'ms')
+            if (movieGenres.status_code === 25 && retryCount <= maxRetries) {
+              console.error('429 detected, retrying in 4000ms')
               setTimeout(() => {
                 this.fetchMovieGenresWithRetry(maxRetries, retryCount++)
-              }, err.headers['retry-after'])
+              }, 4000)
+            } else {
+              this.setState({ genres: util.arrayIdMatch(genreData.genres, movieGenres.results[0].genre_ids) })
             }
+          })
+          .catch(err => {
+            console.error(err)
           })
       })
       .catch(err => alert('error fetching movie genre list: ', err))

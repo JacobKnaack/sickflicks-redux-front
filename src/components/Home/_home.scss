@@ -110,6 +110,7 @@
   border-radius: 10px;
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
   transition: 0.5s ease-in-out;
+  overflow: auto;
 
   .posterImg {
     width:auto;
@@ -123,7 +124,7 @@
   .reviewTag {
     font-size: 200%;
     color: #00FFBC;
-    width: 80%;
+    width: 90%;
     margin: 0 auto 15px auto;
     text-align: left;
   }
@@ -133,15 +134,14 @@
     flex-direction: column;
     justify-content: flex-start;
     width: calc(100% - 200px);
-    margin: 20px 0;
-    overflow: auto;
+    margin: 10px 0;
   
     .load {
       color: #D54B97;
     }
   
     .reviewMovie {
-      width: 80%;
+      width: 90%;
       color: #fff;
       text-shadow: 6px 6px 0px rgba(0,0,0,0.2);
       font-size: 250%;
@@ -152,7 +152,8 @@
     }
   
   .genreContainer {
-    width: 80%;
+    width: 90%;
+    min-height: 35px; 
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -172,11 +173,11 @@
     }
   
      .reviewDate {
-      font-family: 'Saira', sans-serif;
-      font-weight: 100;
-      color: #fff;
-      width: 80%;
-      margin-left: 10%;
+        font-family: 'Saira', sans-serif;
+        font-weight: 100;
+        color: #fff;
+        width: 90%;
+        margin-left: 5%;
     }
   }
 }
