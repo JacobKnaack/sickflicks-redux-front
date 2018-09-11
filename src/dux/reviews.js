@@ -201,6 +201,7 @@ const data = (state = [], action) => {
     case FETCH_REVIEW_SUCCESS:
       return [action.payload]
     case REMOVE_REVIEWS:
+    case LOGOUT:
       return []
     default:
       return state

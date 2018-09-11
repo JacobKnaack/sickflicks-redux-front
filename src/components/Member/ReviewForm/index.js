@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { selectMovie } from '../../../dux/tmdb'
 import { addMovie } from '../../../dux/movies'
-import { addReview,  } from '../../../dux/reviews'
+import { addReview, } from '../../../dux/reviews'
 
 import ReviewEditor from './ReviewEditor'
 import Preview from './Preview'
@@ -40,9 +40,9 @@ class ReviewForm extends React.Component {
       console.log('fetch reviews for this movie and poplulate review form if it exists with: \n this.setState({ reviewHTML: })')
     })
   }
-  
+
   componentWillReceiveProps(nextProps) {
-    if(nextProps.movieData !== this.props.movieData) [
+    if (nextProps.movieData !== this.props.movieData) [
       this.setState({
         genres: nextProps.movieData.genres
       })
@@ -79,7 +79,7 @@ class ReviewForm extends React.Component {
       borderRadius: '5px',
     }
 
-    const textareaStyle= {
+    const textareaStyle = {
       outline: 'none',
       width: '600px',
       height: '50vh',
@@ -182,12 +182,12 @@ class ReviewForm extends React.Component {
             <h2 style={titleStyle}>{this.props.movieTitle}</h2>
             <h3 style={releaseStyle}>{util.formatMovieRelease(this.props.releaseDate)}</h3>
             <div className='genres'>
-              {this.state.genres.map( genre => <p key={genre.id} style={genreStyle}>{genre.name}</p> )}
+              {this.state.genres.map(genre => <p key={genre.id} style={genreStyle}>{genre.name}</p>)}
             </div>
           </div>
         </div>
         <form className='reviewSubmissionForm'>
-          <input 
+          <input
             name='reviewTitle'
             autoComplete='off'
             style={titleInputStyle}
@@ -195,7 +195,7 @@ class ReviewForm extends React.Component {
             onChange={this.formFieldTyping}
             placeholder='Title (Required)'
           />
-          <ReviewEditor 
+          <ReviewEditor
             handleReviewChange={this.handleReviewChange}
             reviewHTML={this.state.reviewHTML}
           />
@@ -216,7 +216,7 @@ class ReviewForm extends React.Component {
           </div>
         </form>
         {util.renderEither(this.state.reviewPreview && this.state.reviewTitle.length && this.state.reviewHTML.length > 100,
-          <Preview 
+          <Preview
             title={this.state.reviewTitle}
             author={this.state.author}
             reviewText={this.state.reviewHTML}
@@ -224,7 +224,7 @@ class ReviewForm extends React.Component {
             submitReview={this.submitReview}
           />,
           <div>
-            {util.renderIf(this.state.reviewPreview,  
+            {util.renderIf(this.state.reviewPreview,
               <div className='validator-modal'>
                 <div className='reviewValidationError'>
                   <h2>Review Validation Error</h2>
@@ -261,8 +261,8 @@ class ReviewForm extends React.Component {
   }
 
   scrollToBottom(offset = 0) {
-  const top = this.el.getBoundingClientRect().top
-  if ( (top + offset)  >= 0 && (top - offset) <= window.innerHeight) {
+    const top = this.el.getBoundingClientRect().top
+    if ((top + offset) >= 0 && (top - offset) <= window.innerHeight) {
       this.el.scrollIntoView()
     }
   }
@@ -304,7 +304,7 @@ class ReviewForm extends React.Component {
 const mapStateToProps = state => ({
   accessToken: state.member.data.accessToken,
   authorData: state.member.data.user,
-  movieData: state.tmdb.data,
+  movieData: state.tmdb.movieData,
   movieReviewData: state.movies.reviewMovie,
   postedReviewData: state.reviews.data,
 })

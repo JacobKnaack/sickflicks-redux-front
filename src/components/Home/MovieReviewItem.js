@@ -12,10 +12,21 @@ class MovieReviewItem extends React.Component {
     }
 
     this.fetchMovieGenresWithRetry = this.fetchMovieGenresWithRetry.bind(this)
+    this.fetchGenreWrapper = (func) => {
+      setTimeout(() => {
+        func()
+      }, 4000)
+    }
   }
 
-  componentWillMount() {
-    this.fetchMovieGenresWithRetry(10)
+  componentWillReceiveProps(nextProps) {
+    if (this.props.genres !== nextProps.genres && nextProps.genres) {
+      this.fetchMovieGenresWithRetry(10)
+    }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.fetchGenreWrapper)
   }
 
   render() {
@@ -32,7 +43,7 @@ class MovieReviewItem extends React.Component {
           />
           <div className='itemInfo'>
             <h2 className='reviewMovie'>{this.props.movie_name} ({new Date(this.props.release).getFullYear()})</h2>
-            <h3 className='reviewTag'>The Sick Flicks Review</h3>
+            <h3 className='reviewTag'>Review</h3>
             <div className='genreContainer'>
               {util.renderIf(!this.state.genres.length,
                 <p className='load'>Loading...</p>
@@ -57,26 +68,19 @@ class MovieReviewItem extends React.Component {
     // fetching movie genre information with retry when too many requests error
     retryCount = retryCount || 0
 
-    fetch(`${__MOVIEDB_API_URL__}/genre/movie/list?api_key=${__MOVIEDB_API_KEY__}&language=en-US`)
+    fetch(`${__MOVIEDB_API_URL__}/search/movie?api_key=${__MOVIEDB_API_KEY__}&query=${this.props.movie_name}`)
       .then(res => res.json())
-      .then(genreData => {
-        fetch(`${__MOVIEDB_API_URL__}/search/movie?api_key=${__MOVIEDB_API_KEY__}&query=${this.props.movie_name}`)
-          .then(res => res.json())
-          .then(movieGenres => {
-            if (movieGenres.status_code === 25 && retryCount <= maxRetries) {
-              console.error('429 detected, retrying in 4000ms')
-              setTimeout(() => {
-                this.fetchMovieGenresWithRetry(maxRetries, retryCount++)
-              }, 4000)
-            } else {
-              this.setState({ genres: util.arrayIdMatch(genreData.genres, movieGenres.results[0].genre_ids) })
-            }
-          })
-          .catch(err => {
-            console.error(err)
-          })
+      .then(movieGenres => {
+        if (movieGenres.status_code === 25 && retryCount <= maxRetries) {
+          console.error('429 detected, retrying in 4000ms')
+          this.fetchGenreWrapper(() => this.fetchMovieGenresWithRetry(maxRetries, retryCount++))
+        } else {
+          this.setState({ genres: util.arrayIdMatch(this.props.genres, movieGenres.results[0].genre_ids) })
+        }
       })
-      .catch(err => alert('error fetching movie genre list: ', err))
+      .catch(err => {
+        console.error(err)
+      })
   }
 }
 
@@ -88,7 +92,7 @@ MovieReviewItem.propTypes = {
   author: PropTypes.string,
   created_on: PropTypes.string,
   image_path: PropTypes.string,
-
+  genres: PropTypes.array,
 }
 
 export default MovieReviewItem

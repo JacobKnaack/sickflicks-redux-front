@@ -41,11 +41,11 @@ module.exports = {
       staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
     }),
     new webpack.DefinePlugin({
-      __NEWS_API_KEY__:    JSON.stringify("c0332ffabbd54d14be6eecec2a682111"),
-      __NEWS_API_URL__:    JSON.stringify("https://newsapi.org/v2"),
+      __NEWS_API_KEY__: JSON.stringify("c0332ffabbd54d14be6eecec2a682111"),
+      __NEWS_API_URL__: JSON.stringify("https://newsapi.org/v2"),
       __MOVIEDB_API_KEY__: JSON.stringify("2a443d47c5f761eb75c27abba6470b79"),
       __MOVIEDB_API_URL__: JSON.stringify("https://api.themoviedb.org/3"),
-      __DB_API_URL__:      JSON.stringify(apiUrl),
+      __DB_API_URL__: JSON.stringify(apiUrl),
     }),
     new webpack.NoEmitOnErrorsPlugin(),
     new ExtractTextPlugin({

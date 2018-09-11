@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import * as util from '../../../lib/util'
+import * as util from '../../../../lib/util'
 import './_reviewForm.scss'
 
 class ImageGallery extends React.Component {

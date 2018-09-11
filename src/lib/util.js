@@ -1,3 +1,5 @@
+import dateFormat from 'dateformat'
+
 export const renderIf = (test, component) => test ? component : null
 
 export const renderEither = (test, component1, component2) => test ? component1 : component2
@@ -40,7 +42,6 @@ export const arrayIdMatch = (fullList, idMatches) => {
 }
 
 export const parseUrlQuery = (queryString) => {
-  console.log(window.history.state.url)
   const regex = new RegExp(`[?&]${queryString}(=([^&#]*)|&|#|$)`)
   const results = regex.exec(window.history.state.url)
   if (!results) return null
@@ -49,115 +50,17 @@ export const parseUrlQuery = (queryString) => {
 }
 
 export const formatMovieRelease = (date) => {
-  let result = ''
-  const month = new Date(date).getMonth()
-  const day = new Date(date).getDate()
-  const year = new Date(date).getFullYear()
+  const DateObj = new Date(date)
+  const formattedDate = dateFormat(DateObj, "mmmm dS, yyyy")
 
-  switch (month) {
-    case 0:
-      result = 'January'
-      break
-    case 1:
-      result = 'February'
-      break
-    case 2:
-      result = 'March'
-      break
-    case 3:
-      result = 'April'
-      break
-    case 4:
-      result = 'May'
-      break
-    case 5:
-      result = 'June'
-      break
-    case 6:
-      result = 'July'
-      break
-    case 7:
-      result = 'August'
-      break
-    case 8:
-      result = 'September'
-      break
-    case 9:
-      result = 'October'
-      break
-    case 10:
-      result = 'November'
-      break
-    case 11:
-      result = 'December'
-      break
-    default:
-      return 'No Date Found'
-  }
-
-  return result += ` ${day}, ${year}`
+  return formattedDate
 }
 
 export const formatReviewDate = (date) => {
-  let result = ''
-  let hours = new Date(date).getHours()
-  const minutes = new Date(date).getMinutes()
-  const dateNum = new Date(date).getDate()
-  const month = new Date(date).getMonth()
-  const year = new Date(date).getFullYear()
+  const DateObj = new Date(date)
+  const formattedDate = dateFormat(DateObj, "mmmm dS yyyy, @ h:MM TT")
 
-  switch (month) {
-    case 0:
-      result += 'Jan'
-      break
-    case 1:
-      result += 'Feb'
-      break
-    case 2:
-      result += 'Mar'
-      break
-    case 3:
-      result += 'Apr'
-      break
-    case 4:
-      result += 'May'
-      break
-    case 5:
-      result += 'Jun'
-      break
-    case 6:
-      result += 'Jul'
-      break
-    case 7:
-      result += 'Aug'
-      break
-    case 8:
-      result += 'Sep'
-      break
-    case 9:
-      result += 'Oct'
-      break
-    case 10:
-      result += 'Nov'
-      break
-    case 11:
-      result += 'Dec'
-      break
-    default:
-      return 'Incorrect Month supplied'
-  }
-
-  const time = () => {
-    let meridiem = ' AM'
-    if (hours > 12) {
-      hours -= 12
-      meridiem = ' PM'
-    }
-
-    return `${hours}:${minutes} ${meridiem}`
-  }
-
-  return result += ` ${dateNum}, ${year} @ ${time()}`
+  return formattedDate
 }
 
 export const convertToKabob = (string) => {

@@ -6,7 +6,7 @@ import * as util from '../../../lib/util'
 
 class ReviewList extends React.Component {
   render() {
-    const movies = this.props.movies.sort((a,b) => {
+    const movies = this.props.movies.sort((a, b) => {
       return new Date(b.created_on) - new Date(a.created_on)
     })
 
@@ -20,14 +20,17 @@ class ReviewList extends React.Component {
           </div>,
           <div>
             {movies.map(movie => {
-              return (<MovieReviewItem
-                key={movie._id}
-                movie_id={movie._id}
-                movie_name={movie.name}
-                image_path={movie.image_path}
-                release={movie.release}
-                created_on={movie.created_on}
-              />)
+              return (
+                <MovieReviewItem
+                  key={movie._id}
+                  movie_id={movie._id}
+                  movie_name={movie.name}
+                  image_path={movie.image_path}
+                  release={movie.release}
+                  created_on={movie.created_on}
+                  genres={this.props.genres}
+                />
+              )
             })}
           </div>
         )}
@@ -44,6 +47,7 @@ class ReviewList extends React.Component {
 const mapStateToProps = state => ({
   loadingMovies: state.movies.isFetching,
   movies: state.movies.data,
+  genres: state.tmdb.genreData,
 })
 
 export default connect(mapStateToProps, null)(ReviewList)

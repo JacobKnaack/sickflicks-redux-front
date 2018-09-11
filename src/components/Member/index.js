@@ -1,6 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { login, logout, errorSeen } from '../../dux/member'
+import { fetchReviewsByAuthor } from '../../dux/reviews'
+
+import MemberReviewItem from './components/MemberReviewItem'
 import MovieForm from './MovieForm'
 import MemberMenu from './MemberMenu'
 import UpdateReview from './UpdateReview'
@@ -29,20 +33,23 @@ class Member extends React.Component {
   }
 
   componentWillMount() {
-    if(this.props.member && !this.state.username) {
-      this.setState({ username: this.props.member.username })
+    if (this.props.member && !this.state.username) {
+      this.setState({ username: this.props.member.username }, () => {
+        this.props.fetchReviewsByAuthor(this.state.username)
+      })
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.member !== this.props.member && nextProps.member) {
+    if (nextProps.member !== this.props.member && nextProps.member) {
       this.setState({
         username: nextProps.member.username,
+      }, () => {
+        this.props.fetchReviewsByAuthor(this.state.username)
       })
-    } else {
-      this.setState({
-        username: '',
-      })
+    }
+    if (!nextProps.accessToken) {
+      this.setState({ username: '' })
     }
   }
 
@@ -57,14 +64,34 @@ class Member extends React.Component {
         {util.renderEither(this.props.accessToken,
           <div className='memberArea'>
             <div className='username'>
-              <h2>Welcome <span>{this.state.username}</span></h2>
+              <h2>Logged in as <span>{this.state.username}</span></h2>
+              <Link className='review-btn' to={'/member/review-editor'}>
+                <p>Review</p>
+                <i className="fas fa-plus"></i>
+              </Link>
               <div className='logout-btn'
-                   onClick={this.logout}>
+                onClick={this.logout}>
                 <p>Log Out</p>
                 <i className="fas fa-sign-out-alt"></i>
               </div>
             </div>
-            {util.renderIf(!this.state.menuSelected,
+            <div className='member-review-list'>
+              {util.renderIf(!this.props.reviewsByAuthor.length,
+                <div className="No Reviews">
+                  <h2>You have no reviews yet.</h2>
+                </div>
+              )}
+              {this.props.reviewsByAuthor.map(review => (
+                <MemberReviewItem
+                  key={review.title}
+                  author={review.user}
+                  title={review.title}
+                  movieId={review.movieId}
+                  created_on={review.created_on}
+                />
+              ))}
+            </div>
+            {/* {util.renderIf(!this.state.menuSelected,
               <MemberMenu
                 toggleMovieForm={this.toggleMovieForm}
                 toggleUpdateForm={this.toggleUpdateForm}
@@ -83,10 +110,10 @@ class Member extends React.Component {
               <UpdateReview
                 author={this.props.member}
                 history={this.props.history}
-                toggleUpdateForm = {this.toggleUpdateForm}
+                toggleUpdateForm={this.toggleUpdateForm}
                 menuSelect={this.menuSelect}
               />
-            )}
+            )} */}
           </div>,
           <div className='login'>
             {util.renderEither(this.props.authError,
@@ -163,7 +190,7 @@ class Member extends React.Component {
   }
 
   toggleForm(form) {
-    this.setState({memberForm: form})
+    this.setState({ memberForm: form })
   }
 
   toggleMovieForm() {
@@ -184,12 +211,14 @@ const mapStateToProps = state => ({
   accessToken: state.member.data.accessToken,
   authError: state.member.error,
   authRequest: state.member.isFetching,
+  reviewsByAuthor: state.reviews.data,
 })
 
 const mapDispatchToProps = {
   login,
   logout,
   errorSeen,
+  fetchReviewsByAuthor,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Member)

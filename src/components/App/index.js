@@ -25,8 +25,6 @@ class App extends React.Component {
     }
 
     let navItemClasses = (itemId) => {
-      console.log(itemId == 'member' && window.location.href.includes('member'))
-      console.log(itemId == 'home' && !window.location.href.includes('member'))
       if (itemId === 'member' && window.location.href.includes('member')) {
         return 'navItem active'
       }

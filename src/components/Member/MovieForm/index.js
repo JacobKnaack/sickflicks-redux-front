@@ -27,24 +27,24 @@ class MovieForm extends React.Component {
   render() {
     return (
       <div className='movieForm'>
-      {util.renderEither(this.state.movieTitle && this.state.releaseDate,
-        <ReviewForm 
-          tmdb_id={this.state.tmdb_id}
-          movieTitle={this.state.movieTitle}
-          releaseDate={this.state.releaseDate}
-          imagePath={this.state.movieImage}
-          history={this.props.history}
-          resetReviewForm={this.resetReviewForm}
-        />,
-        <div>
-          <div className='promptMenu'>
-            <button
-              className='cancelBtn'
-              onClick={this.cancelForm}
-            >
-              <i className="far fa-times-circle"></i>
-            </button>
-            <input
+        {util.renderEither(this.state.movieTitle && this.state.releaseDate,
+          <ReviewForm
+            tmdb_id={this.state.tmdb_id}
+            movieTitle={this.state.movieTitle}
+            releaseDate={this.state.releaseDate}
+            imagePath={this.state.movieImage}
+            history={this.props.history}
+            resetReviewForm={this.resetReviewForm}
+          />,
+          <div>
+            <div className='promptMenu'>
+              <button
+                className='cancelBtn'
+                onClick={this.cancelForm}
+              >
+                <i className="far fa-times-circle"></i>
+              </button>
+              <input
                 className='moviePrompt'
                 type='text'
                 name='movieTitle'
@@ -53,18 +53,18 @@ class MovieForm extends React.Component {
                 placeholder='What Movie Are You Reviewing?'
                 autoComplete='off'
               />
+            </div>
+            <div className='movieSearchResults'>
+              {this.displayMovieSearchList(this.props.movieSearch)}
+            </div>
           </div>
-          <div className='movieSearchResults'>
-            {this.displayMovieSearchList(this.props.movieSearch)}
-          </div>
-        </div>
-      )}
+        )}
       </div>
     )
   }
 
   displayMovieSearchList(movieArray) {
-    const movieSearchElements= []
+    const movieSearchElements = []
 
     if (this.state.movieTitle.length > 0 && Array.isArray(movieArray)) {
       movieArray.map(movie => {
@@ -77,8 +77,8 @@ class MovieForm extends React.Component {
 
         movieSearchElements.push(
           <div key={movie.id}
-               className='movieSearchListItem'
-               onClick={() => this.selectMovie(movie.id, movie.title, movie.release_date, imagePath)}>
+            className='movieSearchListItem'
+            onClick={() => this.selectMovie(movie.id, movie.title, movie.release_date, imagePath)}>
             <h3>{movie.title}</h3>
             <h4>{util.formatMovieRelease(movie.release_date)}</h4>
             <img src={imagePath} alt={movie.title} />
@@ -88,7 +88,7 @@ class MovieForm extends React.Component {
     } else {
       movieSearchElements.push(
         <div key='noTitle'
-             className='noTitle'>
+          className='noTitle'>
           <h2>Enter a movie title to get started</h2>
         </div>
       )
@@ -139,7 +139,7 @@ MovieForm.propTypes = {
 const mapStateToProps = state => ({
   member: state.member.data.author,
   searchingMovies: state.tmdb.isFetching,
-  movieSearch: state.tmdb.data
+  movieSearch: state.tmdb.movieData
 })
 
 export default connect(mapStateToProps, { searchMovies, resetData })(MovieForm)

@@ -57,6 +57,12 @@ class Flick extends React.Component {
 
   render() {
     const movieTitle = this.props.reviewMovieData.name || ''
+    const releaseDate = () => {
+      if (!this.props.reviewMovieData.release) {
+        return '...loading'
+      }
+      return util.formatMovieRelease(this.props.reviewMovieData.release)
+    }
 
     return (
       <div className='flick'>
@@ -81,7 +87,7 @@ class Flick extends React.Component {
               <img src={this.props.reviewMovieData.image_path} alt={`${movieTitle} poster image`} />
               <div className='header-info'>
                 <h2 id='movie-name'>{movieTitle}</h2>
-                <h3 id='release-date'><span>Released</span> {util.formatMovieRelease(this.props.reviewMovieData.release)}</h3>
+                <h3 id='release-date'><span>Released</span> {releaseDate()}</h3>
                 <div id='watch-now'>
                   <a
                     href={`https://www.justwatch.com/us/movie/${util.convertToKabob(movieTitle)}`}

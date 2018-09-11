@@ -113,7 +113,7 @@
   overflow: auto;
 
   .posterImg {
-    width:auto;
+    width: auto;
     height: 100%;
     margin-right: 10px;
     display: inline-block;
@@ -122,10 +122,10 @@
   }
 
   .reviewTag {
-    font-size: 200%;
+    font-size: 175%;
     color: #00FFBC;
     width: 90%;
-    margin: 0 auto 15px auto;
+    margin: 0 auto;
     text-align: left;
   }
 
@@ -153,10 +153,12 @@
   
   .genreContainer {
     width: 90%;
-    min-height: 35px; 
+    min-height: 35px;
+    height: auto;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    flex-wrap: wrap;
     margin: 0 auto;
   }
   
@@ -167,7 +169,7 @@
       max-width: 180px;
       text-align: center;
       padding: 5px;
-      margin: 0 5px;
+      margin: 5px 5px;
       font-size: 100%;
       font-family: 'Saira', sans-serif;
     }

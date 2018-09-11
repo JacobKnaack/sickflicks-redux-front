@@ -2,6 +2,10 @@ import { combineReducers } from 'redux'
 import { CALL_API } from 'redux-api-middleware'
 import { LOGOUT } from './member'
 
+export const FETCH_MDB_GENRES_REQUEST = 'FETCH_MDB_GENRES_REQUEST'
+export const FETCH_MDB_GENRES_SUCCESS = 'FETCH_MDB_GENRES_SUCCESS'
+export const FETCH_MDB_GENRES_FAILURE = 'FETCH_MDB_GENRES_FAILURE'
+
 export const SEARCH_MDB_REQUEST = 'SEARCH_MDB_REQUEST'
 export const SEARCH_MDB_SUCCESS = 'SEARCH_MDB_SUCCESS'
 export const SEARCH_MDB_FAILURE = 'SEARCH_MDB_FAILURE'
@@ -11,6 +15,20 @@ export const SELECT_MDB_MOVIE_SUCCESS = 'SELECT_MDB_MOVIE_SUCCESS'
 export const SELECT_MDB_MOVIE_FAILURE = 'SELECT_MDB_MOVIE_FAILURE'
 
 export const RESET_MDB_DATA = 'RESET_MDB_DATA'
+
+export const fetchGenres = () => (dispatch) => {
+  dispatch({
+    [CALL_API]: {
+      endpoint: `${__MOVIEDB_API_URL__}/genre/movie/list?api_key=${__MOVIEDB_API_KEY__}&language=en-US`,
+      method: 'GET',
+      types: [
+        FETCH_MDB_GENRES_REQUEST,
+        FETCH_MDB_GENRES_SUCCESS,
+        FETCH_MDB_GENRES_FAILURE,
+      ]
+    }
+  })
+}
 
 export const searchMovies = (movieQuery) => (dispatch) => {
   dispatch({
@@ -48,9 +66,12 @@ const isFetching = (state = false, action) => {
   switch (action.type) {
     case SEARCH_MDB_REQUEST:
     case SELECT_MDB_MOVIE_REQUEST:
+    case FETCH_MDB_GENRES_REQUEST:
       return true
     case SEARCH_MDB_SUCCESS:
     case SEARCH_MDB_FAILURE:
+    case FETCH_MDB_GENRES_SUCCESS:
+    case FETCH_MDB_GENRES_FAILURE:
     case SELECT_MDB_MOVIE_SUCCESS:
     case SELECT_MDB_MOVIE_FAILURE:
       return false
@@ -63,9 +84,12 @@ const error = (state = null, action) => {
   switch (action.type) {
     case SEARCH_MDB_FAILURE:
     case SELECT_MDB_MOVIE_FAILURE:
+    case FETCH_MDB_GENRES_FAILURE:
       return action.payload || { message: action.payload.message }
     case SEARCH_MDB_REQUEST:
     case SEARCH_MDB_SUCCESS:
+    case FETCH_MDB_GENRES_REQUEST:
+    case FETCH_MDB_GENRES_SUCCESS:
     case SELECT_MDB_MOVIE_REQUEST:
     case SELECT_MDB_MOVIE_SUCCESS:
       return false
@@ -74,7 +98,7 @@ const error = (state = null, action) => {
   }
 }
 
-const data = (state = [], action) => {
+const movieData = (state = [], action) => {
   switch (action.type) {
     case SEARCH_MDB_SUCCESS:
       return [...action.payload.results]
@@ -88,10 +112,20 @@ const data = (state = [], action) => {
   }
 }
 
+const genreData = (state = [], action) => {
+  switch (action.type) {
+    case FETCH_MDB_GENRES_SUCCESS:
+      return [...action.payload.genres]
+    default:
+      return state
+  }
+}
+
 const tmdb = combineReducers({
   isFetching,
   error,
-  data
+  movieData,
+  genreData,
 })
 
 export default tmdb
