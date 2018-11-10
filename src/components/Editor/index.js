@@ -1,15 +1,18 @@
 import React from 'react'
 import ReactQuill, { Quill } from 'react-quill'
+import MovieForm from './MovieForm'
 // import quill from 'quill'
 
 import ImageGallery from './components/ImageGallery'
-import * as util from '../../../lib/util'
+import * as util from '../../lib/util'
 
-class ReviewEditor extends React.Component {
+class Editor extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       imageSelectorOpen: false,
+      releaseDate: '',
+      movieTitle: '',
     }
 
     this.toggleGallery = this.toggleGallery.bind(this)
@@ -39,32 +42,42 @@ class ReviewEditor extends React.Component {
   }
 
   render() {
+    const containerStyle = {
+      backgroundColor: '#ffffff',
+    }
     const editorStyle = {
       backgroundColor: '#ffffff',
       outline: 'none',
     }
 
     return (
-      <div className='editor-container'>
-        {util.renderIf(this.state.imageSelectorOpen,
-          <ImageGallery
-            toggleGallery={this.toggleGallery}
-            imageHandler={this.imageHandler}
-          />
-        )}
+      <div
+        className="review-editor-container"
+        style={containerStyle}
+      >
+        {util.renderEither(this.state.movieTitle && this.state.releaseDate,
+          <div className='editor-container'>
+            {util.renderIf(this.state.imageSelectorOpen,
+              <ImageGallery
+                toggleGallery={this.toggleGallery}
+                imageHandler={this.imageHandler}
+              />
+            )}
 
-        <ReactQuill
-          ref={(el) => this.quillRef = el}
-          onChange={this.props.handleReviewChange}
-          value={this.props.reviewHTML}
-          // value={util.htmlParser(this.props.reviewHTML).editorDisplay}
-          modules={this.modules}
-          formats={this.formats}
-          bounds={'.reviewSubmissionForm'}
-          style={editorStyle}
-          theme='snow'
-          placeholder='Type or paste your Review (required)'
-        />
+            <ReactQuill
+              ref={(el) => this.quillRef = el}
+              onChange={this.props.handleReviewChange}
+              value={this.props.reviewHTML}
+              modules={this.modules}
+              formats={this.formats}
+              bounds={'.reviewSubmissionForm'}
+              style={editorStyle}
+              theme='snow'
+              placeholder='Type or paste your Review (required)'
+            />
+          </div>,
+          <MovieForm />
+        )}
       </div>
     )
   }
@@ -82,4 +95,4 @@ class ReviewEditor extends React.Component {
   }
 }
 
-export default ReviewEditor
+export default Editor

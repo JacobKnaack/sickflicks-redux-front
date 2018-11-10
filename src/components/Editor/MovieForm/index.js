@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { searchMovies, resetData } from '../../../dux/tmdb'
 
-import ReviewForm from '../ReviewForm'
+// import ReviewForm from '../ReviewForm'
 import * as util from '../../../lib/util'
 import './_movieForm.scss'
 
@@ -27,7 +27,7 @@ class MovieForm extends React.Component {
   render() {
     return (
       <div className='movieForm'>
-        {util.renderEither(this.state.movieTitle && this.state.releaseDate,
+        {/* {util.renderEither(this.state.movieTitle && this.state.releaseDate,
           <ReviewForm
             tmdb_id={this.state.tmdb_id}
             movieTitle={this.state.movieTitle}
@@ -35,30 +35,30 @@ class MovieForm extends React.Component {
             imagePath={this.state.movieImage}
             history={this.props.history}
             resetReviewForm={this.resetReviewForm}
-          />,
-          <div>
-            <div className='promptMenu'>
-              <button
-                className='cancelBtn'
-                onClick={this.cancelForm}
-              >
-                <i className="far fa-times-circle"></i>
-              </button>
-              <input
-                className='moviePrompt'
-                type='text'
-                name='movieTitle'
-                value={this.state.movieTitle}
-                onChange={this.movieSearch}
-                placeholder='What Movie Are You Reviewing?'
-                autoComplete='off'
-              />
-            </div>
-            <div className='movieSearchResults'>
-              {this.displayMovieSearchList(this.props.movieSearch)}
-            </div>
+          />, */}
+        <div>
+          <div className='promptMenu'>
+            <button
+              className='cancelBtn'
+              onClick={this.cancelForm}
+            >
+              <i className="far fa-times-circle"></i>
+            </button>
+            <input
+              className='moviePrompt'
+              type='text'
+              name='movieTitle'
+              value={this.state.movieTitle}
+              onChange={this.movieSearch}
+              placeholder='What Movie Are You Reviewing?'
+              autoComplete='off'
+            />
           </div>
-        )}
+          <div className='movieSearchResults'>
+            {this.displayMovieSearchList(this.props.movieSearch)}
+          </div>
+        </div>
+        {/* )} */}
       </div>
     )
   }
@@ -142,7 +142,4 @@ const mapStateToProps = state => ({
   movieSearch: state.tmdb.movieData
 })
 
-export default connect(
-  mapStateToProps,
-  { searchMovies, resetData }
-)(MovieForm)
+export default connect(mapStateToProps, { searchMovies, resetData })(MovieForm)

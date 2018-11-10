@@ -4,6 +4,7 @@ import { Switch, Route, Link } from 'react-router-dom'
 import Logo from '../../asset/img/sfnp.svg'
 import Home from '../Home'
 import Member from '../Member'
+import Editor from '../Editor'
 import Flick from '../Flick'
 
 import './_app.scss'
@@ -75,7 +76,8 @@ class App extends React.Component {
         </header>
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route path='/member' component={Member} />
+          <Route exact path='/member' component={Member} />
+          <Route path='/member/editor' component={Editor} />
           <Route path='/flick/:movieId' component={Flick} />
         </Switch>
         <h5 className='copyright'>SFNP 2018</h5>

@@ -5,9 +5,9 @@ import { login, logout, errorSeen } from '../../dux/member'
 import { fetchReviewsByAuthor } from '../../dux/reviews'
 
 import MemberReviewItem from './components/MemberReviewItem'
-import MovieForm from './MovieForm'
-import MemberMenu from './MemberMenu'
-import UpdateReview from './UpdateReview'
+// import MovieForm from './MovieForm'
+// import MemberMenu from './MemberMenu'
+// import UpdateReview from './UpdateReview'
 
 import * as util from '../../lib/util'
 import './_member.scss'
@@ -65,7 +65,7 @@ class Member extends React.Component {
           <div className='memberArea'>
             <div className='username'>
               <h2>Logged in as <span>{this.state.username}</span></h2>
-              <Link className='review-btn' to={'/member/review-editor'}>
+              <Link className='review-btn' to='/member/editor'>
                 <p>Review</p>
                 <i className="fas fa-plus"></i>
               </Link>
@@ -221,4 +221,7 @@ const mapDispatchToProps = {
   fetchReviewsByAuthor,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Member)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Member)
