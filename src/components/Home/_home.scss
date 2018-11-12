@@ -92,6 +92,9 @@
 
 .reviewLink {
   text-decoration: none;
+  display: block;
+  width: 90%;
+  margin: 30px auto;
 }
 
 .movieReviewItem {
@@ -100,8 +103,7 @@
   background-size: cover;
   background-position: center;
   height: 300px;
-  width: 90%;
-  margin: 30px auto;
+  width: 100%;
   font-family: Ultra;
   display: flex;
   flex-Direction: row;
@@ -185,9 +187,12 @@
 }
 
 @media(max-width: 600px) {
+  .reviewLink{
+    width: 300px !important;
+  }
+
   .movieReviewItem {
     height: 450px;
-    width: 300px !important;
 
     .posterImg {
       margin: 0 auto;

@@ -25,12 +25,12 @@ class App extends React.Component {
       navigationMenuClasses += ' active'
     }
 
-    let navItemClasses = (itemId) => {
-      if (itemId === 'member' && window.location.href.includes('member')) {
+    const navItemClasses = (itemId) => {
+      if (itemId === 'member' && window.location.pathname === '/member') {
         return 'navItem active'
       }
 
-      if (itemId === 'home' && !window.location.href.includes('member')) {
+      if (itemId === 'home' && window.location.pathname === '/') {
         return 'navItem active'
       }
 

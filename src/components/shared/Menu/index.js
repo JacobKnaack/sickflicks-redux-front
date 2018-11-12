@@ -1,4 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import SearchDisplay from './SearchDisplay'
+
+import { renderIf } from '../../../lib/util'
 import './_menu.scss'
 
 class Menu extends React.Component {
@@ -7,9 +12,20 @@ class Menu extends React.Component {
     this.state = {
       searchQuery: '',
       menuActive: false,
+      scrollY: '',
     }
 
+    this.handleScroll = this.handleScroll.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
   }
 
   render() {
@@ -18,6 +34,9 @@ class Menu extends React.Component {
     if (this.state.menuActive) {
       menuClasses += ' active'
       searchClasses += ' active'
+    }
+    if (this.state.scrollY >= 200) {
+      menuClasses += ' scrolled'
     }
     let uriEncodedQuery = this.state.searchQuery.split(' ').join('+')
     let anchorPoints = {
@@ -34,7 +53,7 @@ class Menu extends React.Component {
           onFocus={() => this.setState({ menuActive: true })}
           onBlur={() => {
             if (!this.state.searchQuery) {
-              this.setState({ menuActive: false })
+              this.setState({ menuActive: false, })
             }
           }}
         >
@@ -47,6 +66,11 @@ class Menu extends React.Component {
             value={this.state.searchQuery}
             onChange={this.handleInputChange}
           />
+          {renderIf(this.state.searchQuery,
+            <SearchDisplay
+              movies={this.handleSearch()}
+            />
+          )}
         </div>
         <div className={searchClasses}>
           <div className='search-menu-icon'>
@@ -66,6 +90,12 @@ class Menu extends React.Component {
     )
   }
 
+  handleScroll() {
+    this.setState({
+      scrollY: window.pageYOffset,
+    });
+  }
+
   handleInputChange(e) {
     const { name, value } = e.target
     this.setState({ [name]: value })
@@ -76,6 +106,30 @@ class Menu extends React.Component {
       window.open(url, '_blank')
     } else alert('please submit a query in the search bar')
   }
+
+  handleSearch() {
+    // this function needs to search for reviews on the backend
+    const results = []
+    this.props.movieData.map(movie => {
+      const movieName = movie.name.toLowerCase()
+      const searchTerm = this.state.searchQuery.toLowerCase()
+      if (movieName.indexOf(searchTerm) !== -1) {
+        results.push(movie)
+      }
+    })
+    return results
+  }
 }
 
-export default Menu
+const mapStateToProps = state => ({
+  movieData: state.movies.data,
+})
+
+Menu.propTypes = {
+  movieData: PropTypes.array,
+}
+
+export default connect(
+  mapStateToProps,
+  null,
+)(Menu)

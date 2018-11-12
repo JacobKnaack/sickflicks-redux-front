@@ -64,5 +64,6 @@ export const formatReviewDate = (date) => {
 }
 
 export const convertToKabob = (string) => {
-  return string.replace(/\s+/g, '-').toLowerCase()
+  let removedCharacters = string.replace(/[^\w\s]/gi, '')
+  return removedCharacters.replace(/\s+/g, '-').toLowerCase()
 }
