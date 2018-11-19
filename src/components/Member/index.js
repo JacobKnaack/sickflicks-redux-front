@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { login, logout, errorSeen } from '../../dux/member'
 import { fetchReviewsByAuthor } from '../../dux/reviews'
 
-import MemberReviewItem from './components/MemberReviewItem'
+import MemberReviewListItem from './components/MemberReviewListItem'
 // import MovieForm from './MovieForm'
 // import MemberMenu from './MemberMenu'
 // import UpdateReview from './UpdateReview'
@@ -12,18 +12,19 @@ import MemberReviewItem from './components/MemberReviewItem'
 import * as util from '../../lib/util'
 import './_member.scss'
 
+const initialState = {
+  username: '',
+  password: '',
+  memberForm: null,
+  movieFormOpen: false,
+  updateFormOpen: false,
+  menuSelected: false,
+}
+
 class Member extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      username: '',
-      password: '',
-      memberForm: null,
-      movieFormOpen: false,
-      updateFormOpen: false,
-      menuSelected: false,
-    }
-
+    this.state = initialState
     this.handleInputChange = this.handleInputChange.bind(this)
     this.toggleMovieForm = this.toggleMovieForm.bind(this)
     this.toggleUpdateForm = this.toggleUpdateForm.bind(this)
@@ -82,10 +83,11 @@ class Member extends React.Component {
                 </div>
               )}
               {this.props.reviewsByAuthor.map(review => (
-                <MemberReviewItem
+                <MemberReviewListItem
                   key={review.title}
-                  author={review.user}
+                  reviewId={review._id}
                   title={review.title}
+                  // author={review.user}
                   movieId={review.movieId}
                   created_on={review.created_on}
                 />

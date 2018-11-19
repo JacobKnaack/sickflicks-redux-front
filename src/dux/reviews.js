@@ -42,7 +42,7 @@ export const fetchReviews = () => (dispatch) => {
   })
 }
 
-export const loadReview = (reviewId) => (dispatch) => {
+export const fetchReviewById = (reviewId) => (dispatch) => {
   dispatch({
     [CALL_API]: {
       endpoint: `${__DB_API_URL__}/review/${reviewId}`,

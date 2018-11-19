@@ -2,27 +2,28 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { selectMovie } from '../../../dux/tmdb'
 import { addMovie } from '../../../dux/movies'
-import { addReview, } from '../../../dux/reviews'
+import { addReview } from '../../../dux/reviews'
 
 import ReviewEditor from './ReviewEditor'
 import Preview from './Preview'
 import * as util from '../../../lib/util'
 import './_reviewForm.scss'
 
+const initialState = {
+  movieName: '',
+  movieRelease: '',
+  movieImage: '',
+  reviewTitle: '',
+  genres: [],
+  author: {},
+  reviewHTML: '',
+  reviewPreview: false,
+}
+
 class ReviewForm extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      movieName: '',
-      movieRelease: '',
-      movieImage: '',
-      reviewTitle: '',
-      genres: [],
-      author: {},
-      reviewHTML: '',
-      reviewPreview: false,
-    }
-
+    this.state = initialState
     this.formFieldTyping = this.formFieldTyping.bind(this)
     this.handleReviewChange = this.handleReviewChange.bind(this)
     this.toggleReviewPreview = this.toggleReviewPreview.bind(this)
@@ -309,4 +310,13 @@ const mapStateToProps = state => ({
   postedReviewData: state.reviews.data,
 })
 
-export default connect(mapStateToProps, { selectMovie, addMovie, addReview })(ReviewForm)
+const mapDispatchToProps = {
+  selectMovie,
+  addMovie,
+  addReview,
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ReviewForm)

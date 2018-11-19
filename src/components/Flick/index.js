@@ -6,7 +6,7 @@ import ButtonBase from '@material-ui/core/ButtonBase'
 import Typography from '@material-ui/core/Typography'
 
 import { fetchMovieById } from '../../dux/movies'
-import { loadReview, fetchReviewsByMovieId, removeReviewData } from '../../dux/reviews'
+import { fetchReviewById, fetchReviewsByMovieId, removeReviewData } from '../../dux/reviews'
 
 import Review from './Review'
 import * as util from '../../lib/util'
@@ -183,7 +183,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchMovieById,
-  loadReview,
+  fetchReviewById,
   fetchReviewsByMovieId,
   removeReviewData,
 }
