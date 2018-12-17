@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { fetchMovies } from '../../dux/movies'
 import { fetchGenres } from '../../dux/tmdb'
-import Menu from '../shared/Menu'
+import Menu from '../common/Menu'
 import Feed from './Feed'
 import './_home.scss'
 

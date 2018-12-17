@@ -223,6 +223,8 @@
   .itemInfo {
     .reviewMovie {
       font-size: 200% !important;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
     .reviewTag {
       font-size: 150% !important;

@@ -16,8 +16,8 @@ class Flick extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      baseUrl: window.location.href,
-      reviewUrl: window.history.state.url || null,
+      baseUrl: window.location.protocol + '//' + window.location.host + window.location.pathname,
+      reviewUrl: null,
       reviews: [],
       selectedReview: {},
     }
@@ -157,10 +157,12 @@ class Flick extends React.Component {
   }
 
   handleReviewSelection = (reviewObj) => {
-    this.setState({ selectedReview: reviewObj }, () => {
-      if (!window.history.state.url || !window.history.state.url.includes(reviewObj._id)) {
+    this.setState({
+      selectedReview: reviewObj,
+      reviewUrl: `?review=${reviewObj._id}`,
+    }, () => {
+      if (!window.location.href.includes(reviewObj._id)) {
         window.history.pushState({ url: `?review=${reviewObj._id}` }, 'flick review', `${this.state.baseUrl}?review=${reviewObj._id}`)
-        this.setState({ reviewUrl: window.history.state.url })
       }
     })
   }

@@ -127,7 +127,9 @@
       border-bottom: thin solid #3a3a3a;
 
       input {
-        text-align: center;
+        text-align: left;
+        margin-left: 10px;
+        color: #3498db;
       }
     }
 
@@ -150,23 +152,46 @@
     }
   }
 
-  .authError {
-  height: 200px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  
-  p {
-    font-family: 'Saira', sans-serif;
-    width: 50%;
-    margin: 0 auto;
-    text-align: center;
-  }
+    .authError {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    p {
+      font-family: 'Saira', sans-serif;
+      width: 50%;
+      margin: 0 auto;
+      text-align: center;
+    }
 
-  button {
-    outline: none;
-    width: 100px;
-    margin: 0 auto;
+    button {
+      outline: none;
+      width: 100px;
+      margin: 0 auto;
+    }
   }
 }
+
+@media (max-width: 500px) {
+  .memberIcon {
+    font-size: 150% !important;
+  }
+
+  h2 {
+    font-size: 100%;
+  }
+  h3 {
+    height: auto !important;
+    font-size: 100%;
+    padding-top: 15px !important;
+  }
+
+  #loginForm-password, #loginForm-username {
+    width: 250px !important;
+
+    input {
+      width: 150px;
+    }
+  }
 }
