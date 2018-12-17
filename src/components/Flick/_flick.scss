@@ -58,12 +58,19 @@
   justify-content: flex-start;
   padding: 15px;
 
-  img {
+  .poster-image-container {
     max-width: 350px;
+    max-height: 525px;
+  }
+  
+  .poster-image {
+    width: 100%;
+    height: auto;
     border-radius: 5px;
   }
 
   .header-info {
+    max-width: 75%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -112,25 +119,38 @@
 
   @media (max-width: 1200px) {
     min-height: 40vw;
-
   }
   
+  @media (max-width: 700px) {
+    .poster-image-container {
+      min-width: 150px;
+      min-height: 225px;
+      width: 150px;
+      height: 225px;
+    }
+
+    #movie-name {
+      overflow-wrap: break-word;
+      word-break: break-word;
+      hyphens: auto;
+    }
+  }
+
   @media (max-width: 500px) {
     .header-info {
       max-width: 250px;
     }
     
-    img {
-      max-width: 100px;
-      height: 100%;
+    .poster-image-container {
+      min-width: 100px;
+      min-height: 150px;
+      width: 100px;
+      height: 150px;
     }
 
     #movie-name {
       font-size: 200% !important;
       line-height: 125% !important;
-      overflow-wrap: break-word;
-      word-break: break-word;
-      hyphens: auto;
     }
 
     #release-date {

@@ -84,7 +84,12 @@ class Flick extends React.Component {
               </div>
             </div>
             <div className='review-title-container'>
-              <img src={this.props.reviewMovieData.image_path} alt={`${movieTitle} poster image`} />
+              <div className="poster-image-container">
+                <img
+                  className="poster-image"
+                  src={this.props.reviewMovieData.image_path}
+                  alt={`${movieTitle} poster image`} />
+              </div>
               <div className='header-info'>
                 <h2 id='movie-name'>{movieTitle}</h2>
                 <h3 id='release-date'><span>Released</span> {releaseDate()}</h3>
