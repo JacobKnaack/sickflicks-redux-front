@@ -8,6 +8,7 @@ function isAuthorized(accessToken) {
 }
 
 const AuthRoute = ({ component: Component, memberData, ...rest }) => {
+  console.log(memberData)
   return (
     <Route {...rest} render={props => {
       if (isAuthorized(memberData.accessToken)) {

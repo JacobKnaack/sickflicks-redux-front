@@ -1,3 +1,10 @@
+.review-editor-container {
+  background-color: #ffffff;
+  position: absolute;
+  z-index: 8;
+  padding-bottom: 100px;
+}
+
 .reviewSubmissionForm {
   width: 100%;
   display: flex;
@@ -66,6 +73,7 @@
 
 .editor-container {
   background-color: #ffffff;
+
   width: 95%;
   margin: 0 auto;
   min-height: 250px;
@@ -81,6 +89,12 @@
 
   .ql-toolbar.ql-snow {
     border-bottom: 1px solid #a9a9a9 !important;
+    height: 45px !important;
+
+    .ql-formats button {
+      max-height: 45px;
+      max-width: 45px;
+    }
   }
 
   .ql-editor.ql-blank::before {

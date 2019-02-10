@@ -8,8 +8,7 @@ const containerStyle = {
 }
 
 const MemberReviewListItem = (props) => {
-  const { reviewId, title, created_on } = props
-
+  const { reviewId, title, created_on, movie, updated_on } = props
   return (
     <Link
       className='member-review-item-container'
@@ -18,7 +17,11 @@ const MemberReviewListItem = (props) => {
     >
       {/* <img> */}
       <h1 id="review-title">{title}</h1>
+      <h2 id="review-movie-name">{movie.name}</h2>
       <h3 id="review-date">Created: {util.formatReviewDate(created_on)}</h3>
+      {/* {util.renderIf(created_on !== updated_on,
+        <h3>Updated: {updated_on}</h3>
+      )} */}
     </Link>
   )
 }
@@ -26,7 +29,9 @@ const MemberReviewListItem = (props) => {
 MemberReviewListItem.propTypes = {
   reviewId: PropTypes.string,
   title: PropTypes.string,
+  movie: PropTypes.object,
   created_on: PropTypes.string,
+  updated_on: PropTypes.string,
 }
 
 export default MemberReviewListItem

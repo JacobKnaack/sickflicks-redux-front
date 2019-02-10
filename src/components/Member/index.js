@@ -31,6 +31,7 @@ class Member extends React.Component {
     this.menuSelect = this.menuSelect.bind(this)
     this.login = this.login.bind(this)
     this.logout = this.logout.bind(this)
+    this.findMovie = this.findMovie.bind(this)
   }
 
   componentWillMount() {
@@ -87,9 +88,9 @@ class Member extends React.Component {
                   key={review.title}
                   reviewId={review._id}
                   title={review.title}
-                  // author={review.user}
-                  movieId={review.movieId}
+                  movie={this.findMovie(review)}
                   created_on={review.created_on}
+                  updated_on={review.updated_on}
                 />
               ))}
             </div>
@@ -166,6 +167,17 @@ class Member extends React.Component {
     )
   }
 
+  findMovie(review) {
+    let result = {}
+    this.props.movieData.forEach(movie => {
+      if (review.movieId === movie._id) {
+        result = movie
+      }
+    })
+
+    return result
+  }
+
   login(e) {
     e.preventDefault()
     if (this.state.username && this.state.password) {
@@ -214,6 +226,7 @@ const mapStateToProps = state => ({
   authError: state.member.error,
   authRequest: state.member.isFetching,
   reviewsByAuthor: state.reviews.data,
+  movieData: state.movies.data,
 })
 
 const mapDispatchToProps = {
