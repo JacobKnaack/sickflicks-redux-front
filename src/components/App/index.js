@@ -2,7 +2,7 @@ import React from 'react'
 import { Switch, Route, Link } from 'react-router-dom'
 
 import Logo from '../../asset/img/sfnp.svg'
-import AuthRoute from '../Common/AuthRoute.js'
+import AuthRoute from '../common/AuthRoute.js'
 import Unauthorized from '../Unauthorized'
 import Home from '../Home'
 import Member from '../Member'
